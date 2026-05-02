@@ -1,155 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bender Apps</title>
-  <meta
-    name="description"
-    content="Bender Apps builds focused software for medical education and clinical workflows."
-  />
-  <link rel="stylesheet" href="/assets/css/site.css" />
+  <meta name="description" content="Bender Apps creates focused medical education, clinical reference, and specialty learning apps for physicians, trainees, and healthcare professionals." />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="/">
-        <span class="brand-mark">B</span>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="Bender Apps home">
+        <span class="brand-mark">BA</span>
         <span>Bender Apps</span>
       </a>
+      <a class="nav-link" href="mailto:support@benderapps.dev">Contact</a>
+    </nav>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a class="current" href="/">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/support/">Support</a>
-        <a href="/privacy/">Privacy</a>
-      </nav>
-    </div>
+    <section class="hero">
+      <p class="eyebrow">Independent medical & education software</p>
+      <h1>Focused apps for surgeons, trainees, clinicians,<br class="desktop-break"> and curious learners.</h1>
+      <p class="hero-copy">
+        Practical medical and education software for cardiothoracic surgery, staging references,
+        board-style review, and specialty-focused learning.
+      </p>
+      <div class="hero-actions" aria-label="Primary actions">
+        <a class="primary-action" href="#apps-title">Explore apps</a>
+        <a class="secondary-action" href="mailto:support@benderapps.dev">Contact Bender Apps</a>
+      </div>
+    </section>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
+    <section class="showcase" aria-labelledby="apps-title">
+      <div class="section-heading">
         <div>
-          <div class="eyebrow">Independent medical software development</div>
-          <h1>Focused digital products for education and clinical practice.</h1>
-          <p class="lead">
-            Bender Apps develops thoughtful software with an emphasis on
-            clarity, usability, and practical value. This site serves as the
-            central home for current and future app projects.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="/apps/">Explore Apps</a>
-            <a class="button" href="https://cardiothoraxia.com/" target="_blank" rel="noopener noreferrer">
-              Visit Cardiothoraxia
-            </a>
-          </div>
+          <p class="eyebrow">App Store portfolio</p>
+          <h2 id="apps-title">Explore the apps</h2>
         </div>
-
-        <aside class="hero-card">
-          <div class="stat-list">
-            <div class="stat">
-              <div class="stat-label">Primary focus</div>
-              <div class="stat-value">Medical education and clinical tools</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Current external site</div>
-              <div class="stat-value">
-                <a href="https://cardiothoraxia.com/" target="_blank" rel="noopener noreferrer">
-                  cardiothoraxia.com
-                </a>
-              </div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Developer site purpose</div>
-              <div class="stat-value">App landing pages, support, and privacy resources</div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>App portfolio</h2>
-          <p class="page-intro">
-            The structure below leaves room for additional app home pages as the portfolio grows.
-          </p>
-        </div>
-
-        <div class="grid grid-3">
-          <article class="card app-card">
-            <div class="app-icon">C</div>
-            <div>
-              <h3 class="card-title">Cardiothoraxia</h3>
-              <p>
-                Current featured project with its own external website.
-              </p>
-            </div>
-            <div class="app-meta">
-              <a href="https://cardiothoraxia.com/" target="_blank" rel="noopener noreferrer">
-                Visit external site
-              </a>
-            </div>
-          </article>
-
-          <article class="card app-card">
-            <div class="app-icon">A</div>
-            <div>
-              <h3 class="card-title">Future App Placeholder</h3>
-              <p>
-                Reserved for a subsequent app landing page within this domain.
-              </p>
-            </div>
-            <div class="app-meta">
-              <span class="placeholder-badge">Coming soon</span>
-            </div>
-          </article>
-
-          <article class="card app-card">
-            <div class="app-icon">A</div>
-            <div>
-              <h3 class="card-title">Future App Placeholder</h3>
-              <p>
-                Additional portfolio space for later expansion.
-              </p>
-            </div>
-            <div class="app-meta">
-              <span class="placeholder-badge">Coming soon</span>
-            </div>
-          </article>
+        <div class="carousel-controls" aria-label="Carousel controls">
+          <button class="control" type="button" id="scroll-left" aria-label="Scroll apps left">‹</button>
+          <button class="control" type="button" id="scroll-right" aria-label="Scroll apps right">›</button>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="cta">
-          <h2>Developer resources</h2>
-          <p class="page-intro">
-            Support and privacy pages are available for current and future applications published under Bender Apps.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="/support/">Support</a>
-            <a class="button" href="/privacy/">Privacy</a>
-          </div>
+      <div class="carousel-shell">
+        <div class="app-carousel" id="app-carousel" tabindex="0" aria-label="Bender Apps carousel">
+          <!-- Cards are inserted by JavaScript so icons can be pulled from Apple automatically. -->
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-row">
-      <div>© 2026 Bender Apps</div>
-      <nav class="footer-nav" aria-label="Footer">
-        <a href="/">Home</a>
-        <a href="/apps/">Apps</a>
-        <a href="/support/">Support</a>
-        <a href="/privacy/">Privacy</a>
-      </nav>
-    </div>
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Bender Apps, LLC. All rights reserved.</p>
+    <p><a href="mailto:support@benderapps.dev">support@benderapps.dev</a></p>
   </footer>
+
+  <script>
+    const apps = [
+      {
+        name: "Esophageal Cancer Stage",
+        id: "928907258",
+        category: "Medical staging reference",
+        description: "A focused esophageal carcinoma staging reference for clinicians and learners.",
+        url: "https://apps.apple.com/us/app/esophageal-cancer-stage/id928907258"
+      },
+      {
+        name: "SESATS 10",
+        id: "1528818078",
+        category: "Thoracic surgery review",
+        description: "Self-assessment questions for cardiothoracic surgery study and review.",
+        url: "https://apps.apple.com/us/app/sesats-10/id1528818078"
+      },
+      {
+        name: "CardioThoraxia",
+        id: "6758521707",
+        category: "Cardiothoracic literature",
+        description: "A cardiothoracic PubMed discovery tool with specialty-focused AI insights.",
+        url: "https://apps.apple.com/us/app/cardiothoraxia/id6758521707"
+      },
+      {
+        name: "SESATS IX",
+        id: "601665070",
+        category: "Thoracic surgery review",
+        description: "Legacy SESATS question review with updated study support for CT surgery learners.",
+        url: "https://apps.apple.com/us/app/sesats-ix/id601665070"
+      },
+      {
+        name: "HeartChart",
+        id: "566700808",
+        category: "Cardiac surgery tool",
+        description: "Draw and save CABG graft diagrams on a heart chart for case visualization.",
+        url: "https://apps.apple.com/us/app/heart-chart/id566700808"
+      },
+      {
+        name: "Lung Cancer Stage",
+        id: "403036158",
+        category: "Medical staging reference",
+        description: "A lung cancer TNM staging reference designed for quick clinical education use.",
+        url: "https://apps.apple.com/us/app/lung-cancer-stage/id403036158"
+      },
+      {
+        name: "EuroSCORE II",
+        id: "473767507",
+        category: "Cardiac risk calculator",
+        description: "A mobile reference for EuroSCORE II cardiac operative risk estimation.",
+        url: "https://apps.apple.com/us/app/euroscore-ii/id473767507"
+      },
+      {
+        name: "iBronch",
+        id: "1613075203",
+        category: "Bronchoscopy education",
+        description: "A bronchoscopy-oriented educational app for airway anatomy and learning.",
+        url: "https://apps.apple.com/us/app/ibronch/id1613075203"
+      },
+      {
+        name: "DLQI",
+        id: "955272291",
+        category: "Transplant reference",
+        description: "Donor Lung Quality Index reference support for thoracic transplant education.",
+        url: "https://apps.apple.com/us/app/dlqi/id955272291"
+      },
+      {
+        name: "Lions Prey",
+        id: "1585269322",
+        category: "Lung lesion reference",
+        description: "A specialty reference app focused on lung lesions and related learning.",
+        url: "https://apps.apple.com/us/app/lions-prey/id1585269322"
+      }
+    ];
+
+    const carousel = document.getElementById("app-carousel");
+    const iconMap = new Map();
+
+    function initials(name) {
+      return name
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map(word => word[0].toUpperCase())
+        .join("");
+    }
+
+    function createCard(app) {
+      const article = document.createElement("article");
+      article.className = "app-card";
+
+      const iconUrl = iconMap.get(app.id);
+      const iconMarkup = iconUrl
+        ? `<img class="app-icon" src="${iconUrl}" alt="${app.name} app icon" loading="lazy">`
+        : `<div class="app-icon fallback-icon" aria-hidden="true">${initials(app.name)}</div>`;
+
+      article.innerHTML = `
+        <div class="icon-wrap">${iconMarkup}</div>
+        <div class="card-body">
+          <p class="app-category">${app.category}</p>
+          <h3>${app.name}</h3>
+          <p>${app.description}</p>
+        </div>
+        <a class="app-link" href="${app.url}" target="_blank" rel="noopener noreferrer" aria-label="View ${app.name} on the App Store">View on App Store</a>
+      `;
+
+      return article;
+    }
+
+    function renderCards() {
+      carousel.innerHTML = "";
+      apps.forEach(app => carousel.appendChild(createCard(app)));
+    }
+
+    async function loadIconsFromApple() {
+      const ids = apps.map(app => app.id).join(",");
+      const lookupUrl = `https://itunes.apple.com/lookup?id=${ids}&country=us`;
+
+      try {
+        const response = await fetch(lookupUrl);
+        if (!response.ok) throw new Error("Apple lookup failed");
+        const data = await response.json();
+
+        data.results.forEach(result => {
+          if (result.trackId && result.artworkUrl512) {
+            iconMap.set(String(result.trackId), result.artworkUrl512.replace("512x512bb", "1024x1024bb"));
+          }
+        });
+      } catch (error) {
+        console.warn("Could not load App Store icons. Fallback initials are shown instead.", error);
+      } finally {
+        renderCards();
+      }
+    }
+
+    document.getElementById("scroll-left").addEventListener("click", () => {
+      carousel.scrollBy({ left: -360, behavior: "smooth" });
+    });
+
+    document.getElementById("scroll-right").addEventListener("click", () => {
+      carousel.scrollBy({ left: 360, behavior: "smooth" });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderCards();
+    loadIconsFromApple();
+  </script>
 </body>
 </html>
