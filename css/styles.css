@@ -189,6 +189,7 @@ h1 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.4rem);
   letter-spacing: -0.055em;
+  white-space: nowrap;
 }
 
 .carousel-controls {
@@ -368,6 +369,10 @@ h1 {
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .section-heading h2 {
+    white-space: normal;
   }
 
   .app-carousel {
