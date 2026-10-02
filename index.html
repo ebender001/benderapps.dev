@@ -70,13 +70,14 @@
 
   <footer class="site-footer">
     <p>© <span id="year"></span> Bender Apps. Educational software only. Not a substitute for professional medical judgment.</p>
-    <a href="mailto:support@benderapps.dev">support@benderapps.dev</a>
+    <p><a href="/apps/">All apps</a> · <a href="mailto:support@benderapps.dev">support@benderapps.dev</a></p>
   </footer>
 
   <script>
     const apps = [
       {
         name: "Oral Boards AI",
+        slug: "oral-boards-ai",
         category: "Surgical board preparation",
         description: "Prepare for your oral boards with realistic, case-based simulations built for surgical trainees.",
         icon: "images/apps/oral-boards-ai.png",
@@ -84,6 +85,7 @@
       },
       {
         name: "SESATS 10",
+        slug: "sesats-10",
         category: "Thoracic surgery education",
         description: "Study and review thoracic surgery self-assessment content.",
         icon: "images/apps/sesats-10.png",
@@ -91,13 +93,23 @@
       },
       {
         name: "Heart Team Prep",
+        slug: "heart-team-prep",
         category: "Cardiac surgery education",
         description: "Prepare for multidisciplinary heart team discussions with focused, case-based review.",
         icon: "images/apps/heart-team-prep.png",
         url: "https://apps.apple.com/app/heart-team-prep/id6809840439"
       },
       {
+        name: "M&M Coach",
+        slug: "m-m-coach",
+        category: "Surgical conference preparation",
+        description: "Prepare a clear, organized case for morbidity and mortality conference.",
+        icon: "images/apps/m-m-coach.png",
+        url: "https://apps.apple.com/us/app/m-m-coach/id6803235748"
+      },
+      {
         name: "HeartChart",
+        slug: "heart-chart",
         category: "Cardiac surgery diagrams",
         description: "Draw and save coronary bypass graft diagrams, plus other cardiac procedures, for case documentation and learning.",
         icon: "images/apps/heart-chart.png",
@@ -105,6 +117,7 @@
       },
       {
         name: "iBronch",
+        slug: "ibronch",
         category: "Bronchoscopy education",
         description: "A focused educational app for bronchoscopic anatomy and learning.",
         icon: "images/apps/ibronch.png",
@@ -112,6 +125,7 @@
       },
       {
         name: "Esophageal Cancer Stage",
+        slug: "esophageal-cancer-stage",
         category: "Cancer staging",
         description: "A focused educational staging tool for esophageal carcinoma.",
         icon: "images/apps/esophageal-cancer-stage.png",
@@ -119,6 +133,7 @@
       },
       {
         name: "CardioThoraxia",
+        slug: "cardiothoraxia",
         category: "Cardiothoracic literature",
         description: "A PubMed companion designed around cardiothoracic surgery topics.",
         icon: "images/apps/cardiothoraxia.png",
@@ -126,6 +141,7 @@
       },
       {
         name: "CTSurg IX",
+        slug: "ctsurg-ix",
         category: "Thoracic surgery education",
         description: "Classic thoracic surgery board-style review with modern utility.",
         icon: "images/apps/sesats-ix.png",
@@ -133,6 +149,7 @@
       },
       {
         name: "Lung Cancer Stage",
+        slug: "lung-cancer-stage",
         category: "Cancer staging",
         description: "A practical staging reference for lung cancer education.",
         icon: "images/apps/lung-cancer-stage.png",
@@ -140,6 +157,7 @@
       },
       {
         name: "EuroSCORE II",
+        slug: "euroscore-ii",
         category: "Cardiac risk calculation",
         description: "A mobile reference for EuroSCORE II cardiac surgical risk estimation.",
         icon: "images/apps/euroscore-ii.png",
@@ -147,6 +165,7 @@
       },
       {
         name: "Lions Prey",
+        slug: "lions-prey",
         category: "Lung cancer",
         description: "Estimate likelihood of lung mass being malignant",
         icon: "images/apps/lions-prey.png",
@@ -182,6 +201,7 @@
           <p>${app.description}</p>
         </div>
         <a class="app-link" href="${app.url}" target="_blank" rel="noopener noreferrer">View on App Store</a>
+        <a class="app-link secondary" href="/apps/${app.slug}/">Learn more</a>
       `;
 
       return article;
