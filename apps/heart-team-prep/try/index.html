@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Try Heart Team Prep – Interactive Demo</title>
+  <meta name="description" content="Try a scripted demo of Heart Team Prep: dictate a sample cardiac surgery case, answer follow-up questions, and see how the heart team would read it." />
+  <link rel="canonical" href="https://benderapps.dev/apps/heart-team-prep/try/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1663ff" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .demo { max-width: 860px; margin: 0 auto; }
+    .demo-banner { font-size: .9rem; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 0 0 28px; }
+    .cta { text-align: center; margin: 28px 0 0; }
+
+    /* Phone frame */
+    .phone { --app-bg: #f6f5f0; --navy: #12504a; --ink: #0b1220; --sub: #5f6773; --card-line: #e8e4dc;
+      width: 390px; max-width: 100%; height: 800px; margin: 0 auto; background: var(--app-bg); color: var(--ink);
+      border: 10px solid #15181d; border-radius: 52px; box-shadow: var(--shadow); position: relative; overflow: hidden; display: flex; flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; }
+    .status { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px 6px; font-weight: 600; font-size: 15px; flex: none; }
+    .battery { width: 25px; height: 12px; border-radius: 4px; background: var(--ink); }
+    .screen { flex: 1; overflow-y: auto; padding: 8px 20px 28px; }
+    .screen[hidden] { display: none !important; }
+    .screen.col { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+    .col .body { flex: 1; overflow-y: auto; padding: 8px 20px 16px; }
+    .col .footer { border-top: 1px solid #ece8e0; padding: 14px 20px 22px; background: var(--app-bg); }
+    .col .topbar { padding: 8px 20px 0; margin-bottom: 8px; }
+    .topbar.center { display: grid; grid-template-columns: 46px 1fr 46px; }
+    .topbar.center h2 { margin: 0; text-align: center; font-size: 18px; font-weight: 600; }
+    #phone { scroll-margin-top: 76px; }
+    .phone.white { background: #fff; }
+    .q-label { color: #858a94; font-size: 17px; margin: 14px 0 6px; }
+    .q-text { font-size: 27px; line-height: 1.22; font-weight: 800; margin: 0 0 18px; letter-spacing: -.01em; }
+    .answer-box { width: 100%; box-sizing: border-box; min-height: 250px; font: inherit; font-size: 17px; line-height: 1.4; color: var(--ink); background: #f2f2f7; border: 1px solid #dcdce4; border-radius: 18px; padding: 16px; resize: none; }
+    .answer-box::placeholder { color: #a6a8b2; }
+    .demo-tip { margin: 0 0 12px; }
+    .col .body .dictate { margin-top: 14px; }
+    .phone.white .status { background: #fff; }
+    .done-pill { border: 0; background: #fffdf9; color: var(--navy); border-radius: 999px; height: 46px; padding: 0 22px; font: inherit; font-size: 18px; box-shadow: 0 4px 14px rgba(20,30,50,.08); cursor: pointer; }
+    .icon-pill { display: flex; gap: 6px; background: #fffdf9; border-radius: 999px; height: 46px; padding: 0 8px; align-items: center; box-shadow: 0 4px 14px rgba(20,30,50,.08); }
+    .icon-pill button { border: 0; background: none; color: var(--navy); width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer; }
+    .topbar.pkg-bar { grid-template-columns: auto 1fr auto; min-height: 46px; }
+    .topbar.pkg-bar > span { min-width: 46px; }
+    .seg { display: flex; background: #eeeef0; border-radius: 16px; padding: 3px; margin: 8px 20px 18px; }
+    .seg button { flex: 1; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); padding: 9px 2px; border-radius: 13px; cursor: pointer; }
+    .seg button[aria-selected="true"] { background: #fff; box-shadow: 0 1px 4px rgba(20,30,50,.12); font-weight: 600; }
+    .present { width: 100%; border: 0; background: var(--navy); color: #fff; border-radius: 18px; font: inherit; font-size: 20px; font-weight: 600; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: 0 8px 20px rgba(18,80,74,.25); margin-bottom: 22px; }
+    .case-text { font-family: "New York", "Iowan Old Style", Georgia, serif; font-size: 19px; line-height: 1.55; margin: 0; }
+    .sec-h { display: flex; align-items: center; gap: 10px; color: #12504a; font-size: 21px; font-weight: 700; margin: 4px 0 16px; }
+    .pcard { background: #f2f2f7; border: 1px solid #e0e0e8; border-radius: 22px; padding: 18px; margin-bottom: 16px; }
+    .pcard h4 { margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 700; }
+    .pcard .bg { color: #858a94; font-size: 16.5px; line-height: 1.4; margin: 0 0 12px; }
+    .pcard .dl { font-size: 16.5px; line-height: 1.4; margin: 0; }
+    .pcard .dl strong { display: block; }
+    .pcard .rd { display: flex; gap: 10px; color: #858a94; font-size: 16.5px; line-height: 1.4; margin: 0 0 12px; }
+    .pcard .rd svg { flex: none; margin-top: 3px; }
+    .pcard .grade { display: inline-block; margin: 12px 0 0; font-size: 14px; font-weight: 600; color: var(--navy); background: #e3efec; border-radius: 999px; padding: 5px 12px; }
+    .pcard .foot { display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+    .pcard .foot em { color: #a4a8b1; }
+    .pcard .foot a { color: var(--navy); font-weight: 600; text-decoration: none; }
+    .qcard { display: flex; gap: 12px; align-items: flex-start; background: #f2f2f7; border: 1px solid #e0e0e8; border-radius: 22px; padding: 16px 14px 16px 16px; margin-bottom: 16px; font-size: 18px; line-height: 1.35; }
+    .qcard .n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: #e3efec; color: var(--navy); font-size: 15px; font-weight: 700; display: grid; place-items: center; margin-top: 2px; }
+    .qcard .t { flex: 1; }
+    .qcard svg { flex: none; color: #b3b6bd; margin-top: 2px; }
+    .fcard { background: #f1f1f5; border: 1px solid #e2e2e8; border-radius: 22px; padding: 18px 18px 16px; margin-bottom: 14px; }
+    .fq { margin: 0 0 12px; font-size: 21px; line-height: 1.25; font-weight: 600; }
+    .ftag { display: inline-block; background: #e6e7ec; color: #505560; font-size: 15px; font-weight: 600; border-radius: 999px; padding: 6px 14px; margin-bottom: 12px; }
+    .fwhy { margin: 0; color: #5f6773; font-size: 16px; line-height: 1.4; }
+    .stop-link { display: block; width: 100%; border: 0; background: none; font: inherit; font-size: 17px; color: #4a515c; padding: 14px 0 0; cursor: pointer; }
+    .sheet-ov { position: absolute; inset: 0; background: rgba(0,0,0,.28); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 6; }
+    .sheet-ov.on { opacity: 1; pointer-events: auto; }
+    .sheet { position: absolute; left: 6px; right: 6px; bottom: 0; height: 74%; background: var(--app-bg); border-radius: 40px 40px 0 0; padding: 10px 20px 20px; transform: translateY(105%); transition: transform .3s ease; z-index: 7; box-shadow: 0 -8px 30px rgba(0,0,0,.12); }
+    .sheet.on { transform: translateY(0); }
+    .grab { width: 38px; height: 5px; border-radius: 3px; background: #c7c9ce; margin: 0 auto 14px; }
+    .sheet-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 14px; }
+    .sheet-bar h2 { grid-column: 2; margin: 0; font-size: 20px; font-weight: 600; }
+    .sheet-done { grid-column: 3; justify-self: end; border: 0; background: #eceae4; color: var(--navy); font: inherit; font-size: 20px; font-weight: 600; border-radius: 999px; padding: 12px 22px; cursor: pointer; }
+    .sheet-note { margin: 0 0 14px; color: #5f6773; font-size: 17px; line-height: 1.4; }
+    .sheet-box { background: #f1f1f5; border: 1px solid #e2e2e8; border-radius: 18px; padding: 14px 16px; font-size: 18px; line-height: 1.4; overflow-y: auto; max-height: 70%; }
+    @media (prefers-reduced-motion: reduce) { .sheet, .sheet-ov { transition: none; } }
+    .ghost { padding: 22px 20px 0; opacity: .1; }
+    .ghost h3 { margin: 0 0 8px; font-size: 27px; font-weight: 700; }
+    .ghost p { margin: 0; font-size: 17px; line-height: 1.45; }
+    .prep { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 0 30px 160px; }
+    .prep .ecg { color: #4b7a74; margin-bottom: 14px; animation: beat 1.4s ease-in-out infinite; }
+    .prep strong { font-size: 22px; font-weight: 600; color: var(--ink); }
+    .prep p { margin: 0; color: #5f6773; font-size: 18px; }
+    @keyframes beat { 0%, 100% { opacity: .45; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+    @media (prefers-reduced-motion: reduce) { .prep .ecg { animation: none; } }
+    .topbar.sticky { position: sticky; top: 0; z-index: 3; margin: 0 -20px; padding: 8px 20px 10px; background: rgba(246,245,240,.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+    .pk { padding-top: 6px; }
+    .pk-h { margin: 8px 0 6px; font-size: 27px; font-weight: 700; letter-spacing: -.01em; }
+    .pk-sub { margin: 0 0 18px; color: #6a717c; font-size: 17px; line-height: 1.45; }
+    .fu-row { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: none; font: inherit; font-size: 17px; font-weight: 500; color: var(--ink); padding: 4px 0; margin-bottom: 16px; cursor: pointer; text-align: left; }
+    .fu-row svg:first-child { color: var(--navy); flex: none; }
+    .fu-row span { flex: 1; }
+    .fu-row .chev { color: #8b909a; }
+    .members { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    .member { border: 0; border-radius: 20px; background: #dfe5df; color: var(--navy); font: inherit; font-size: 15px; font-weight: 600; padding: 14px 4px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .member[aria-selected="true"] { background: var(--navy); color: #fff; }
+    .mcard { background: #f1f1f5; border: 1px solid #e2e2e8; border-radius: 22px; padding: 18px; margin-bottom: 16px; }
+    .mrole { margin: 0 0 10px; font-size: 15.5px; letter-spacing: .03em; text-transform: uppercase; color: #5f6773; }
+    .mhead { margin: 0 0 12px; font-size: 22px; line-height: 1.22; font-weight: 700; }
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 1px solid #dcdce2; margin-bottom: 14px; }
+    .pill { color: #fff; font-size: 15px; font-weight: 700; border-radius: 999px; padding: 6px 14px; }
+    .pill.cor { background: #4c8f5e; }
+    .pill.loe { background: #4a63b8; }
+    .mtext { margin: 0; font-size: 19px; line-height: 1.42; }
+    .outline-btn { width: 100%; border: 2.5px solid var(--navy); background: transparent; color: var(--navy); border-radius: 22px; font: inherit; font-size: 20px; font-weight: 600; padding: 26px 0; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; }
+    .sheet.tall { height: 88%; }
+    .d-body { overflow-y: auto; height: calc(100% - 78px); padding-bottom: 20px; }
+    .qa { background: #f1f1f5; border: 1px solid #e2e2e8; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; }
+    .qa strong { display: block; font-size: 17px; margin-bottom: 6px; }
+    .qa p { margin: 0; color: #4a515c; font-size: 16px; line-height: 1.4; }
+    .topbar.center h2.wrap { font-size: 17px; line-height: 1.2; }
+    .ev-intro { margin: 8px 0 34px; color: #6a717c; font-size: 17px; line-height: 1.45; }
+    .ev-h { margin: 0 0 6px; color: #7a7f89; font-size: 23px; font-weight: 600; }
+    .ev-list { margin: 0 0 36px; padding: 0; list-style: none; }
+    .ev-row { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid #dedcd6; color: inherit; text-decoration: none; }
+    .ev-row .t { flex: 1; }
+    .ev-row .t strong { display: block; font-size: 19px; line-height: 1.3; font-weight: 500; }
+    .ev-row .t span { display: block; margin-top: 4px; color: #6a717c; font-size: 15px; }
+    .ev-row svg { flex: none; color: #9a9ea7; }
+    .toast { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); background: rgba(11,18,32,.92); color: #fff; font-size: 15px; padding: 10px 16px; border-radius: 14px; max-width: 80%; text-align: center; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 5; }
+    .toast.on { opacity: 1; }
+    .big-h { font-size: 27px; font-weight: 700; margin: 10px 0 6px; letter-spacing: -.01em; }
+    .lead { color: var(--sub); font-size: 17px; line-height: 1.45; margin: 0 0 22px; }
+    .entry-card { background: #fff; border: 1px solid var(--card-line); border-radius: 22px; padding: 16px; }
+    .hint { display: flex; align-items: flex-start; gap: 10px; color: var(--navy); background: #e3efec; border-radius: 14px; padding: 11px 14px; font-size: 15.5px; font-weight: 600; line-height: 1.35; margin: 0 0 14px; }
+    .hint svg { flex: none; margin-top: 1px; }
+    .entry-card textarea { width: 100%; box-sizing: border-box; min-height: 300px; font: inherit; font-size: 17px; line-height: 1.4; color: var(--ink); background: #f2f2f7; border: 1px solid #dcdce4; border-radius: 16px; padding: 16px; resize: none; }
+    .entry-card textarea::placeholder { color: #a6a8b2; }
+    .dictate { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 14px; color: var(--sub); font-size: 16px; }
+    .mic-btn { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #b6bfcb; background: #f7f8fb; color: var(--navy); display: grid; place-items: center; cursor: pointer; }
+    .mic-btn.pulse { animation: pulse 1.6s ease-out infinite; }
+    .mic-btn.live { border-color: #d6342b; color: #d6342b; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(18,80,74,.35); } 100% { box-shadow: 0 0 0 16px rgba(18,80,74,0); } }
+    @media (prefers-reduced-motion: reduce) { .mic-btn.pulse { animation: none; } }
+    .continue { width: 100%; border: 0; border-radius: 20px; background: var(--navy); color: #fff; font: inherit; font-size: 20px; font-weight: 600; padding: 17px; cursor: pointer; }
+    .continue:disabled { background: #9ab3ac; color: #d9e5e1; cursor: default; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; min-height: 46px; }
+    .round-btn { border: 0; background: #fffdf9; color: var(--navy); border-radius: 999px; height: 46px; min-width: 46px; padding: 0 18px; font: inherit; font-size: 17px; box-shadow: 0 4px 14px rgba(20,30,50,.08); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    .round-btn[aria-disabled="true"] { cursor: default; }
+    .app-title { font-size: 31px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+    .app-sub { color: var(--sub); font-size: 17px; margin: 2px 0 18px; }
+    .start-btn { width: 100%; text-align: left; border: 0; cursor: pointer; background: var(--navy); color: #fff; border-radius: 22px; padding: 16px 18px; display: flex; align-items: center; gap: 16px; font: inherit; }
+    .start-btn .mic { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; flex: none; }
+    .start-btn strong { display: block; font-size: 20px; font-weight: 600; }
+    .start-btn span.s { font-size: 15px; opacity: .85; }
+    .note { display: flex; align-items: center; gap: 12px; color: var(--sub); font-size: 14px; margin: 14px 0 36px; }
+    .section-h { font-size: 21px; font-weight: 600; margin: 0 0 14px; }
+    .case-row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--card-line); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
+    .case-row p { margin: 0; font-size: 17px; line-height: 1.3; }
+    .case-row .date { color: var(--sub); font-size: 15px; margin-top: 4px; }
+    .badge.ready { background: #d9e6e2; color: #12504a; }
+    .badge { background: #e8e8ec; color: #505560; border-radius: 999px; font-size: 15px; font-weight: 600; padding: 7px 14px; flex: none; }
+    .case-row.new { border-color: var(--navy); }
+
+    /* provisional inner screens */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; min-height: 46px; }
+    .nav-row h2 { margin: 0; font-size: 20px; font-weight: 700; }
+    .link-btn { border: 0; background: none; color: var(--navy); font: inherit; font-size: 17px; cursor: pointer; padding: 8px 0; }
+    .field { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; line-height: 1.45; color: var(--ink); background: #fff; border: 1px solid var(--card-line); border-radius: 18px; padding: 14px 16px; resize: none; }
+    .primary { width: 100%; border: 0; border-radius: 18px; background: var(--navy); color: #fff; font: inherit; font-size: 18px; font-weight: 600; padding: 15px; margin-top: 12px; cursor: pointer; }
+    .primary:disabled { opacity: .4; cursor: default; }
+    @media (max-width: 480px) { .phone { border-width: 6px; border-radius: 36px; height: 760px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header nav">
+    <a class="brand" href="/" aria-label="Bender Apps home">
+      <span class="brand-mark">B</span>
+      <span>Bender Apps</span>
+    </a>
+    <a class="nav-link" href="/apps/">All apps</a>
+  </header>
+
+  <main class="app-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Bender Apps</a> <span aria-hidden="true">/</span> <a href="/apps/">Apps</a> <span aria-hidden="true">/</span> <a href="/apps/heart-team-prep/">Heart Team Prep</a> <span aria-hidden="true">/</span> <span>Try it</span></nav>
+
+    <div class="demo">
+      <h1>Try Heart Team Prep</h1>
+      <p class="demo-banner">Scripted demo with fictional sample cases. Nothing you type is sent anywhere, and the responses are pre-written. The real app adapts its questions to your own case. Tap <strong>Start a New Case</strong> to begin.</p>
+
+      <div class="phone" id="phone">
+        <div class="status" aria-hidden="true"><span>9:18</span><span class="battery"></span></div>
+
+        <!-- Home -->
+        <section class="screen" id="s-home" aria-label="Heart Team Prep home">
+          <div class="topbar">
+            <button class="round-btn" type="button" aria-disabled="true" aria-label="Profile (demo)" tabindex="-1">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3.2" fill="currentColor" stroke="none"/><path d="M5.8 18.2c1.6-2.6 4-3.6 6.2-3.6s4.6 1 6.2 3.6" /></svg>
+            </button>
+            <button class="round-btn" type="button" aria-disabled="true" tabindex="-1">Edit</button>
+          </div>
+          <h2 class="app-title">Heart Team Prep</h2>
+          <p class="app-sub">Preoperative conference prep</p>
+
+
+          <button class="start-btn" id="start-new" type="button">
+            <span class="mic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+            <span><strong>Start a New Case</strong><span class="s">Dictate or type a case for the heart team conference</span></span>
+          </button>
+          <p class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5f6773" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.9 0 1.8.9 1.8 1.8v8.4c0 .9-.9 1.8-1.8 1.8H5.8C4.9 22 4 21.1 4 20.2v-8.4C4 10.9 4.9 10 5.8 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"/></svg>Do not include patient identifiers, dates, or locations.</p>
+
+          <h3 class="section-h">Recent Cases</h3>
+          <div id="recent"></div>
+        </section>
+
+        <!-- Narrative input -->
+        <section class="screen col" id="s-entry" hidden aria-label="New case">
+          <div class="topbar center">
+            <button class="round-btn" id="cancel-entry" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>New Case</h2><span></span>
+          </div>
+          <div class="body">
+            <h2 class="big-h">Describe the case</h2>
+            <p class="lead">Present it as you would to the heart team. Do not include protected health information, including patient names, hospital or institution names, dates of service, or geographic locations.</p>
+            <div class="entry-card">
+              <p class="hint" id="hint">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+                <span id="hint-text">Demo: scroll down and tap the microphone button to dictate the sample case.</span>
+              </p>
+              <textarea id="summary" readonly placeholder="A 64-year-old man presents with an NSTEMI..." aria-label="Clinical case summary"></textarea>
+              <div class="dictate">
+                <button class="mic-btn pulse" id="mic" type="button" aria-label="Tap to dictate">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+                </button>
+                <span id="mic-label">Tap to dictate</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer"><button class="continue" id="continue" type="button" disabled>Continue</button></div>
+        </section>
+
+        <!-- Follow-up question (one screen per question) -->
+        <section class="screen col" id="s-chat" hidden aria-label="Follow-up question">
+          <div class="topbar center pkg-bar">
+            <button class="round-btn" id="back-q" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>Follow-Up Question</h2>
+            <button class="round-btn" id="open-summary" type="button" aria-label="Case summary" style="padding:0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+            </button>
+          </div>
+          <div class="body">
+            <div class="fcard">
+              <h2 class="fq" id="q-text"></h2>
+              <span class="ftag" id="q-tag"></span>
+              <p class="fwhy" id="q-why"></p>
+            </div>
+            <p class="hint demo-tip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="q-hint">Demo: scroll down and tap the microphone button to dictate the answer.</span></p>
+            <textarea class="answer-box" id="reply-input" readonly placeholder="Answer as you would explain it out loud..." aria-label="Your answer"></textarea>
+            <div class="dictate">
+              <button class="mic-btn pulse" id="q-mic" type="button" aria-label="Tap to dictate">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+              </button>
+              <span id="q-mic-label">Tap to dictate</span>
+            </div>
+          </div>
+          <div class="footer">
+            <button class="continue" id="send" type="button" disabled>Submit Answer</button>
+            <button class="stop-link" id="stop-q" type="button">Stop Asking Questions</button>
+          </div>
+        </section>
+
+        <!-- Preparing -->
+        <section class="screen col" id="s-prepare" hidden aria-label="Convening the heart team">
+          <div class="topbar center">
+            <button class="round-btn" id="back-prep" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>Heart Team</h2><span></span>
+          </div>
+          <div class="ghost" aria-hidden="true">
+            <h3>What would the heart team say?</h3>
+            <p>Three members reviewed this case independently. Choose whose take to read -- you can switch anytime as part of the exercise.</p>
+          </div>
+          <div class="prep" aria-live="polite">
+            <svg class="ecg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 26h9l5-20 8 36 6-26 3 10h11"/></svg>
+            <strong>Convening the heart team</strong>
+            <p>Reviewing the case as a cardiologist…</p>
+          </div>
+        </section>
+
+        <!-- Heart team result -->
+        <section class="screen" id="s-package" hidden aria-label="Heart team">
+          <div class="topbar center sticky">
+            <button class="round-btn" id="back-home" type="button" aria-label="Back to cases" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>Heart Team</h2><span></span>
+          </div>
+          <div class="pk">
+            <h2 class="pk-h">What would the heart team say?</h2>
+            <p class="pk-sub">Three members reviewed this case independently. Choose whose take to read -- you can switch anytime as part of the exercise.</p>
+            <button class="fu-row" id="fu-row" type="button">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 12h10M7 15h6"/></svg>
+              <span id="fu-text"></span>
+              <svg class="chev" width="12" height="20" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4 7 7-7 7"/></svg>
+            </button>
+            <div class="members" id="members" role="tablist"></div>
+            <div class="mcard" id="mcard" role="tabpanel"></div>
+            <button class="outline-btn" id="btn-evidence" type="button"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6V3Zm2 4v2h8V7H8Zm0 4v2h8v-2H8Z"/><path d="M4 5h1v16H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg><span>Evidence</span></button>
+            <button class="outline-btn" id="btn-report" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V9h5.5L13 3.5ZM8 13v1.8h8V13H8Zm0 3.5v1.8h8v-1.8H8Z"/></svg><span>View Full Report</span></button>
+          </div>
+        </section>
+        <!-- Evidence for the selected team member -->
+        <section class="screen" id="s-evidence" hidden aria-label="Evidence">
+          <div class="topbar center sticky">
+            <button class="round-btn" id="back-ev" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2 id="ev-title"></h2><span></span>
+          </div>
+          <div class="pk" id="ev-body"></div>
+        </section>
+
+        <div class="sheet-ov" id="sheet-ov" aria-hidden="true"></div>
+        <div class="sheet" id="sheet" role="dialog" aria-label="Case Summary" aria-hidden="true">
+          <div class="grab"></div>
+          <div class="sheet-bar"><h2>Case Summary</h2><button class="sheet-done" id="sheet-done" type="button">Done</button></div>
+          <p class="sheet-note">You can reopen this anytime using the icon in the upper-right corner.</p>
+          <div class="sheet-box" id="sheet-text"></div>
+        </div>
+        <div class="sheet tall" id="dsheet" role="dialog" aria-hidden="true">
+          <div class="grab"></div>
+          <div class="sheet-bar"><h2 id="d-title"></h2><button class="sheet-done" id="d-done" type="button">Done</button></div>
+          <div class="d-body" id="d-body"></div>
+        </div>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+
+      <div class="cta">
+        <p>The full app builds this report from your own cases, with three heart team perspectives and an on-demand PubMed search.</p>
+        <a class="primary-action" href="https://apps.apple.com/us/app/heart-team-prep/id6809840439" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Bender Apps. Educational software only. Not a substitute for professional medical judgment.</p>
+    <a href="mailto:support@benderapps.dev">support@benderapps.dev</a>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const $ = (id) => document.getElementById(id);
+    const screens = { home: $("s-home"), entry: $("s-entry"), chat: $("s-chat"), evidence: $("s-evidence"), prep: $("s-prepare"), pkg: $("s-package") };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fakeRecent = [
+      { text: "A 71-year-old man presents with severe symptomatic aortic stenosis and…", date: "Demo sample", status: "In Progress" },
+      { text: "A 58-year-old woman presents with severe primary mitral regurgitation…", date: "Demo sample", status: "Ready" },
+      { text: "A 67-year-old man with ischemic cardiomyopathy and three-vessel disease…", date: "Demo sample", status: "Completed" }
+    ];
+    let summarySeen = false, prepTimer;
+    let cases = [], current = null, turn = 0, finished = [];
+
+    // If the phone's top edge is scrolled out of view, glide back up to it
+    function keepPhoneInView() {
+      const top = $("phone").getBoundingClientRect().top;
+      if (top < 70 || top > window.innerHeight * 0.6) {
+        $("phone").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }
+    }
+
+    function show(name) {
+      const wasVisible = !screens[name].hidden;
+      for (const k in screens) screens[k].hidden = k !== name;
+      $("phone").classList.toggle("white", false);
+      screens[name].scrollTop = 0;
+      // Scroll the in-phone content back to the top (glide if this screen was already showing)
+      screens[name].querySelectorAll(".body").forEach((b) => b.scrollTo({ top: 0, behavior: wasVisible && !reduceMotion ? "smooth" : "auto" }));
+      if (name === "home") renderRecent();
+      keepPhoneInView();
+    }
+
+    function el(tag, text, cls) {
+      const n = document.createElement(tag);
+      if (text != null) n.textContent = text;
+      if (cls) n.className = cls;
+      return n;
+    }
+
+    function trunc(t, n) { return t.length > n ? t.slice(0, n - 1).trimEnd() + "…" : t; }
+
+    function renderRecent() {
+      const box = $("recent");
+      box.replaceChildren();
+      const rows = finished.map((c) => ({ text: trunc(c.summary, 78), date: "Just now", isNew: true, status: "Ready" })).concat(fakeRecent);
+      rows.forEach((r) => {
+        const row = el("div", null, "case-row" + (r.isNew ? " new" : ""));
+        const left = el("div");
+        left.appendChild(el("p", r.text));
+        left.appendChild(el("p", r.date, "date"));
+        row.appendChild(left);
+        row.appendChild(el("span", r.status, "badge" + (r.status === "Ready" ? " ready" : "")));
+        box.appendChild(row);
+      });
+    }
+
+    // Types text into a read-only field, then calls done()
+    function simulateTyping(field, text, done) {
+      field.value = "";
+      if (reduceMotion) { field.value = text; done(); return; }
+      let i = 0;
+      const tick = () => {
+        i = Math.min(text.length, i + 1 + (Math.random() < 0.4 ? 1 : 0));
+        field.value = text.slice(0, i);
+        field.scrollTop = field.scrollHeight;
+        if (i >= text.length) { done(); return; }
+        const last = text[i - 1];
+        const pause = /[.?!]/.test(last) ? 280 : /[,;:]/.test(last) ? 140 : 0;
+        setTimeout(tick, 10 + Math.random() * 20 + pause);
+      };
+      setTimeout(tick, 500);
+    }
+
+    function openSheet() {
+      $("sheet-text").textContent = current.summary;
+      $("sheet").classList.add("on"); $("sheet-ov").classList.add("on");
+      $("sheet").setAttribute("aria-hidden", "false");
+      $("sheet-done").focus({ preventScroll: true });
+    }
+    function closeSheet() {
+      $("sheet").classList.remove("on"); $("dsheet").classList.remove("on"); $("sheet-ov").classList.remove("on");
+      $("sheet").setAttribute("aria-hidden", "true"); $("dsheet").setAttribute("aria-hidden", "true");
+    }
+
+    function askNext() {
+      if (turn < current.followUps.length) {
+        const q = current.followUps[turn];
+        $("q-text").textContent = q.question;
+        $("q-tag").textContent = q.tag;
+        $("q-why").textContent = q.why;
+        $("reply-input").value = "";
+        $("send").disabled = true;
+        $("q-mic").disabled = false;
+        $("q-mic").classList.add("pulse");
+        $("q-mic").classList.remove("live");
+        $("q-mic-label").textContent = "Tap to dictate";
+        $("q-hint").textContent = "Demo: scroll down and tap the microphone button to dictate the answer.";
+        show("chat");
+        if (turn === 0 && !summarySeen) { summarySeen = true; setTimeout(() => openSheet(true), 450); }
+      } else {
+        show("prep");
+        prepTimer = setTimeout(() => { finished.unshift(current); renderPackage(); show("pkg"); }, 3500);
+      }
+    }
+
+    function dictateAnswer() {
+      const mic = $("q-mic");
+      mic.disabled = true;
+      mic.classList.remove("pulse");
+      mic.classList.add("live");
+      $("q-mic-label").textContent = "Listening…";
+      $("q-hint").textContent = "Listening… the sample answer is being dictated.";
+      simulateTyping($("reply-input"), current.followUps[turn].answer, () => {
+        mic.classList.remove("live");
+        $("q-mic-label").textContent = "Tap to dictate";
+        $("q-hint").textContent = "Answer ready. Tap Submit Answer to continue.";
+        $("send").disabled = false;
+        $("send").focus({ preventScroll: true });
+      });
+    }
+
+    function startCase() {
+      current = cases[0];
+      turn = 0; summarySeen = false;
+      $("summary").value = "";
+      $("continue").disabled = true;
+      $("mic").classList.add("pulse");
+      $("mic").classList.remove("live");
+      $("mic").disabled = false;
+      $("mic-label").textContent = "Tap to dictate";
+      $("hint-text").textContent = "Demo: scroll down and tap the microphone button to dictate the sample case.";
+      show("entry");
+    }
+
+    // Tapping the mic plays the sample dictation into the text box
+    function dictate() {
+      const mic = $("mic");
+      mic.disabled = true;
+      mic.classList.remove("pulse");
+      mic.classList.add("live");
+      $("mic-label").textContent = "Listening…";
+      $("hint-text").textContent = "Listening… the sample case is being dictated.";
+      simulateTyping($("summary"), current.summary, () => {
+        mic.classList.remove("live");
+        $("mic-label").textContent = "Tap to dictate";
+        $("hint-text").textContent = "Dictation complete. Tap Continue to go on.";
+        $("continue").disabled = false;
+        $("continue").focus({ preventScroll: true });
+      });
+    }
+
+    const ICONS = {
+      search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#858a94" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>',
+      surgeon: '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h6a2 2 0 0 1 2 2v1h2a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h2V5a2 2 0 0 1 2-2Zm0 3h6V5H9v1Zm2.2 4v2.2H9v1.6h2.2V16h1.6v-2.2H15v-1.6h-2.2V10h-1.6Z"/></svg>',
+      noninv: '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm6 4.2c-.9-1.2-3-.9-3 .8 0 1.2 1.4 2 3 3.3 1.6-1.300 3-2.100 3-3.300 0-1.700-2.100-2-3-.8ZM7.500 14v1.600h9V14h-9Zm0 3v1.500h6V17h-6Z"/></svg>',
+      inv: '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.500C6 17 2.500 13.800 2.500 9.500A5 5 0 0 1 12 7a5 5 0 0 1 9.500 2.500c0 4.300-3.500 7.500-9.500 12Z"/><path d="m12.500 8.500-2.500 4h2l-.5 3.500 3-4.500h-2l.5-3Z" fill="#dfe5df"/></svg>'
+    };
+    let toastTimer;
+    function toast(msg) {
+      const t = $("toast");
+      t.textContent = msg; t.classList.add("on");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("on"), 2200);
+    }
+
+    let selected = 0;
+    function renderMember(i) {
+      selected = i;
+      const m = current.team[i];
+      for (const b of $("members").children) b.setAttribute("aria-selected", b.dataset.i === String(i));
+      const c = $("mcard");
+      c.replaceChildren();
+      c.appendChild(el("p", m.role, "mrole"));
+      c.appendChild(el("h3", m.headline, "mhead"));
+      const pills = el("div", null, "pills");
+      pills.appendChild(el("span", m.cor, "pill cor"));
+      pills.appendChild(el("span", m.loe, "pill loe"));
+      c.appendChild(pills);
+      c.appendChild(el("p", m.text, "mtext"));
+    }
+
+    function renderPackage() {
+      $("fu-text").textContent = current.followUps.length + " follow-up questions asked";
+      const box = $("members");
+      box.replaceChildren();
+      current.team.forEach((m, i) => {
+        const b = el("button", null, "member");
+        b.type = "button"; b.dataset.i = i; b.setAttribute("role", "tab");
+        b.insertAdjacentHTML("beforeend", ICONS[m.icon]);
+        b.appendChild(el("span", m.label));
+        b.addEventListener("click", () => renderMember(i));
+        box.appendChild(b);
+      });
+      renderMember(0);
+      $("s-package").scrollTop = 0;
+    }
+
+    function openDetail(title, fill) {
+      $("d-title").textContent = title;
+      const body = $("d-body");
+      body.replaceChildren();
+      fill(body);
+      body.scrollTop = 0;
+      $("dsheet").classList.add("on"); $("sheet-ov").classList.add("on");
+      $("dsheet").setAttribute("aria-hidden", "false");
+      $("d-done").focus({ preventScroll: true });
+    }
+
+    $("fu-row").addEventListener("click", () => openDetail("Follow-Up Questions", (body) => {
+      current.followUps.forEach((f) => {
+        const qa = el("div", null, "qa");
+        qa.appendChild(el("strong", f.question));
+        qa.appendChild(el("p", f.answer));
+        body.appendChild(qa);
+      });
+    }));
+    $("btn-evidence").addEventListener("click", () => {
+      const m = current.team[selected];
+      const who = m.title;
+      $("ev-title").textContent = who + " Evidence";
+      $("ev-title").classList.toggle("wrap", who.length > 20);
+      const body = $("ev-body");
+      body.replaceChildren();
+      body.appendChild(el("p", "Literature for and against the " + who.toLowerCase() + "'s recommendation, limited to the last 10 years.", "ev-intro"));
+      [["Supports the " + who, m.evidence.supports], ["Favors an Alternative to the " + who, m.evidence.against]].forEach(([head, items]) => {
+        body.appendChild(el("h3", head, "ev-h"));
+        const ul = el("ul", null, "ev-list");
+        items.forEach((r) => {
+          const li = el("li");
+          const a = el("a", null, "ev-row");
+          a.href = "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(r.title);
+          a.target = "_blank"; a.rel = "noopener noreferrer";
+          const t = el("span", null, "t");
+          t.appendChild(el("strong", r.title));
+          t.appendChild(el("span", r.journal + " \u00b7 " + r.year));
+          a.appendChild(t);
+          a.insertAdjacentHTML("beforeend", '<svg width="12" height="20" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4 7 7-7 7"/></svg>');
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+        body.appendChild(ul);
+      });
+      show("evidence");
+    });
+    $("back-ev").addEventListener("click", () => show("pkg"));
+    $("btn-report").addEventListener("click", () => openDetail("Full Report", (body) => {
+      current.report.forEach((it) => {
+        const card = el("div", null, "pcard");
+        card.appendChild(el("h4", it.title));
+        card.appendChild(el("p", it.background, "bg"));
+        const d = el("p", null, "dl");
+        d.appendChild(el("strong", it.label));
+        d.appendChild(document.createTextNode(it.text));
+        card.appendChild(d);
+        body.appendChild(card);
+      });
+    }));
+    $("d-done").addEventListener("click", closeSheet);
+
+    $("start-new").addEventListener("click", startCase);
+    $("cancel-entry").addEventListener("click", () => show("home"));
+    $("back-home").addEventListener("click", () => show("home"));
+
+    $("mic").addEventListener("click", dictate);
+    $("continue").addEventListener("click", () => askNext());
+    $("q-mic").addEventListener("click", dictateAnswer);
+    $("back-q").addEventListener("click", () => {
+      if (turn > 0) { turn--; askNext(); } else show("entry");
+    });
+    $("back-prep").addEventListener("click", () => {
+      clearTimeout(prepTimer);
+      turn = current.followUps.length - 1;
+      askNext();
+    });
+    $("open-summary").addEventListener("click", openSheet);
+    $("sheet-done").addEventListener("click", closeSheet);
+    $("sheet-ov").addEventListener("click", closeSheet);
+    $("stop-q").addEventListener("click", () => { turn = current.followUps.length; askNext(); });
+    $("send").addEventListener("click", () => { turn++; askNext(); });
+
+    fetch("cases.json").then((r) => r.json()).then((data) => {
+      cases = data;
+      renderRecent();
+    }).catch(() => {
+      $("recent").textContent = "Could not load the sample cases. Please refresh the page.";
+    });
+  </script>
+</body>
+</html>
