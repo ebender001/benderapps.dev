@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Try M&amp;M Coach – Interactive Demo</title>
+  <meta name="description" content="Try a scripted demo of M&amp;M Coach: pick a specialty, start a sample surgical case, answer follow-up questions, and see the morbidity and mortality conference preparation package." />
+  <link rel="canonical" href="https://benderapps.dev/apps/m-m-coach/try/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#1663ff" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .demo { max-width: 860px; margin: 0 auto; }
+    .demo-banner { font-size: .9rem; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 0 0 28px; }
+    .cta { text-align: center; margin: 28px 0 0; }
+
+    /* Phone frame */
+    .phone { --app-bg: #f9f7f3; --navy: #022a4d; --ink: #0b1220; --sub: #5f6773; --card-line: #e8e4dc;
+      width: 390px; max-width: 100%; height: 800px; margin: 0 auto; background: var(--app-bg); color: var(--ink);
+      border: 10px solid #15181d; border-radius: 52px; box-shadow: var(--shadow); position: relative; overflow: hidden; display: flex; flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; }
+    .status { display: flex; justify-content: space-between; align-items: center; padding: 14px 28px 6px; font-weight: 600; font-size: 15px; flex: none; }
+    .battery { width: 25px; height: 12px; border-radius: 4px; background: var(--ink); }
+    .screen { flex: 1; overflow-y: auto; padding: 8px 20px 28px; }
+    .screen[hidden] { display: none !important; }
+    .screen.col { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+    .col .body { flex: 1; overflow-y: auto; padding: 8px 20px 16px; }
+    .col .footer { border-top: 1px solid #ece8e0; padding: 14px 20px 22px; background: var(--app-bg); }
+    .col .topbar { padding: 8px 20px 0; margin-bottom: 8px; }
+    .topbar.center { display: grid; grid-template-columns: 46px 1fr 46px; }
+    .topbar.center h2 { margin: 0; text-align: center; font-size: 18px; font-weight: 600; }
+    #phone { scroll-margin-top: 76px; }
+    .phone.white { background: #fff; }
+    .q-label { color: #858a94; font-size: 17px; margin: 14px 0 6px; }
+    .q-text { font-size: 27px; line-height: 1.22; font-weight: 800; margin: 0 0 18px; letter-spacing: -.01em; }
+    .answer-box { width: 100%; box-sizing: border-box; min-height: 250px; font: inherit; font-size: 17px; line-height: 1.4; color: var(--ink); background: #f2f2f7; border: 1px solid #dcdce4; border-radius: 18px; padding: 16px; resize: none; }
+    .answer-box::placeholder { color: #a6a8b2; }
+    .demo-tip { margin: 0 0 12px; }
+    .col .body .dictate { margin-top: 14px; }
+    .prep { flex: 1; display: grid; place-content: center; text-align: center; gap: 14px; color: var(--sub); font-size: 18px; padding: 0 30px; }
+    .spinner { width: 42px; height: 42px; border-radius: 50%; border: 4px solid #dfe3ea; border-top-color: var(--navy); margin: 0 auto; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+    .phone.white .status { background: #fff; }
+    .done-pill { border: 0; background: #fffdf9; color: var(--navy); border-radius: 999px; height: 46px; padding: 0 22px; font: inherit; font-size: 18px; box-shadow: 0 4px 14px rgba(20,30,50,.08); cursor: pointer; }
+    .icon-pill { display: flex; gap: 6px; background: #fffdf9; border-radius: 999px; height: 46px; padding: 0 8px; align-items: center; box-shadow: 0 4px 14px rgba(20,30,50,.08); }
+    .icon-pill button { border: 0; background: none; color: var(--navy); width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer; }
+    .topbar.pkg-bar { grid-template-columns: auto 1fr auto; min-height: 46px; }
+    .topbar.pkg-bar > span { min-width: 46px; }
+    .seg { display: flex; background: #eeeef0; border-radius: 16px; padding: 3px; margin: 8px 20px 18px; }
+    .seg button { flex: 1; border: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); padding: 9px 2px; border-radius: 13px; cursor: pointer; }
+    .seg button[aria-selected="true"] { background: #fff; box-shadow: 0 1px 4px rgba(20,30,50,.12); font-weight: 600; }
+    .present { width: 100%; border: 0; background: var(--navy); color: #fff; border-radius: 18px; font: inherit; font-size: 20px; font-weight: 600; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: 0 8px 20px rgba(2,42,77,.25); margin-bottom: 22px; }
+    .case-text { font-family: "New York", "Iowan Old Style", Georgia, serif; font-size: 19px; line-height: 1.55; margin: 0; }
+    .sec-h { display: flex; align-items: center; gap: 10px; color: #0a2d57; font-size: 21px; font-weight: 700; margin: 4px 0 16px; }
+    .pcard { background: #f2f2f7; border: 1px solid #e0e0e8; border-radius: 22px; padding: 18px; margin-bottom: 16px; }
+    .pcard h4 { margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 700; }
+    .pcard .bg { color: #858a94; font-size: 16.5px; line-height: 1.4; margin: 0 0 12px; }
+    .pcard .dl { font-size: 16.5px; line-height: 1.4; margin: 0; }
+    .pcard .dl strong { display: block; }
+    .pcard .rd { display: flex; gap: 10px; color: #858a94; font-size: 16.5px; line-height: 1.4; margin: 0 0 12px; }
+    .pcard .rd svg { flex: none; margin-top: 3px; }
+    .pcard .foot { display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+    .pcard .foot em { color: #a4a8b1; }
+    .pcard .foot a { color: var(--navy); font-weight: 600; text-decoration: none; }
+    .qcard { display: flex; gap: 12px; align-items: flex-start; background: #f2f2f7; border: 1px solid #e0e0e8; border-radius: 22px; padding: 16px 14px 16px 16px; margin-bottom: 16px; font-size: 18px; line-height: 1.35; }
+    .qcard .n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: #f1e9c8; color: var(--navy); font-size: 15px; font-weight: 700; display: grid; place-items: center; margin-top: 2px; }
+    .qcard .t { flex: 1; }
+    .qcard svg { flex: none; color: #b3b6bd; margin-top: 2px; }
+    .toast { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); background: rgba(11,18,32,.92); color: #fff; font-size: 15px; padding: 10px 16px; border-radius: 14px; max-width: 80%; text-align: center; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 5; }
+    .toast.on { opacity: 1; }
+    .big-h { font-size: 27px; font-weight: 700; margin: 10px 0 6px; letter-spacing: -.01em; }
+    .lead { color: var(--sub); font-size: 17px; line-height: 1.45; margin: 0 0 22px; }
+    .entry-card { background: #fff; border: 1px solid var(--card-line); border-radius: 22px; padding: 16px; }
+    .hint { display: flex; align-items: flex-start; gap: 10px; color: var(--navy); background: #eaf1f8; border-radius: 14px; padding: 11px 14px; font-size: 15.5px; font-weight: 600; line-height: 1.35; margin: 0 0 14px; }
+    .hint svg { flex: none; margin-top: 1px; }
+    .entry-card textarea { width: 100%; box-sizing: border-box; min-height: 300px; font: inherit; font-size: 17px; line-height: 1.4; color: var(--ink); background: #f2f2f7; border: 1px solid #dcdce4; border-radius: 16px; padding: 16px; resize: none; }
+    .entry-card textarea::placeholder { color: #a6a8b2; }
+    .dictate { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 14px; color: var(--sub); font-size: 16px; }
+    .mic-btn { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #b6bfcb; background: #f7f8fb; color: var(--navy); display: grid; place-items: center; cursor: pointer; }
+    .mic-btn.pulse { animation: pulse 1.6s ease-out infinite; }
+    .mic-btn.live { border-color: #d6342b; color: #d6342b; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(2,42,77,.35); } 100% { box-shadow: 0 0 0 16px rgba(2,42,77,0); } }
+    @media (prefers-reduced-motion: reduce) { .mic-btn.pulse { animation: none; } }
+    .continue { width: 100%; border: 0; border-radius: 20px; background: var(--navy); color: #fff; font: inherit; font-size: 20px; font-weight: 600; padding: 17px; cursor: pointer; }
+    .continue:disabled { background: #97a3b0; color: #d6dce3; cursor: default; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; min-height: 46px; }
+    .round-btn { border: 0; background: #fffdf9; color: var(--navy); border-radius: 999px; height: 46px; min-width: 46px; padding: 0 18px; font: inherit; font-size: 17px; box-shadow: 0 4px 14px rgba(20,30,50,.08); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    .round-btn[aria-disabled="true"] { cursor: default; }
+    .app-title { font-size: 31px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+    .app-sub { color: var(--sub); font-size: 17px; margin: 2px 0 18px; }
+    .specialty { position: relative; background: #fff; border: 1px solid var(--card-line); border-radius: 18px; padding: 12px 16px; margin-bottom: 12px; }
+    .specialty label { display: block; color: var(--sub); font-size: 14px; }
+    .specialty select { appearance: none; -webkit-appearance: none; border: 0; background: transparent; font: inherit; font-size: 20px; font-weight: 600; color: var(--ink); width: 100%; padding: 2px 28px 0 0; cursor: pointer; }
+    .specialty svg { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+    .start-btn { width: 100%; text-align: left; border: 0; cursor: pointer; background: var(--navy); color: #fff; border-radius: 22px; padding: 16px 18px; display: flex; align-items: center; gap: 16px; font: inherit; }
+    .start-btn .mic { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; flex: none; }
+    .start-btn strong { display: block; font-size: 20px; font-weight: 600; }
+    .start-btn span.s { font-size: 15px; opacity: .85; }
+    .note { display: flex; align-items: center; gap: 12px; color: var(--sub); font-size: 14px; margin: 14px 0 36px; }
+    .section-h { font-size: 21px; font-weight: 600; margin: 0 0 14px; }
+    .case-row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--card-line); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
+    .case-row p { margin: 0; font-size: 17px; line-height: 1.3; }
+    .case-row .date { color: var(--sub); font-size: 15px; margin-top: 4px; }
+    .badge { background: #e8e8ec; color: #505560; border-radius: 999px; font-size: 15px; font-weight: 600; padding: 7px 14px; flex: none; }
+    .case-row.new { border-color: var(--navy); }
+
+    /* provisional inner screens */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; min-height: 46px; }
+    .nav-row h2 { margin: 0; font-size: 20px; font-weight: 700; }
+    .link-btn { border: 0; background: none; color: var(--navy); font: inherit; font-size: 17px; cursor: pointer; padding: 8px 0; }
+    .field { width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; line-height: 1.45; color: var(--ink); background: #fff; border: 1px solid var(--card-line); border-radius: 18px; padding: 14px 16px; resize: none; }
+    .primary { width: 100%; border: 0; border-radius: 18px; background: var(--navy); color: #fff; font: inherit; font-size: 18px; font-weight: 600; padding: 15px; margin-top: 12px; cursor: pointer; }
+    .primary:disabled { opacity: .4; cursor: default; }
+    @media (max-width: 480px) { .phone { border-width: 6px; border-radius: 36px; height: 760px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header nav">
+    <a class="brand" href="/" aria-label="Bender Apps home">
+      <span class="brand-mark">B</span>
+      <span>Bender Apps</span>
+    </a>
+    <a class="nav-link" href="/apps/">All apps</a>
+  </header>
+
+  <main class="app-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Bender Apps</a> <span aria-hidden="true">/</span> <a href="/apps/">Apps</a> <span aria-hidden="true">/</span> <a href="/apps/m-m-coach/">M&amp;M Coach</a> <span aria-hidden="true">/</span> <span>Try it</span></nav>
+
+    <div class="demo">
+      <h1>Try M&amp;M Coach</h1>
+      <p class="demo-banner">Scripted demo with fictional sample cases. Nothing you type is sent anywhere, and the responses are pre-written. The real app adapts its questions to your own case. Tap <strong>Start a New Case</strong> to begin.</p>
+
+      <div class="phone" id="phone">
+        <div class="status" aria-hidden="true"><span>9:18</span><span class="battery"></span></div>
+
+        <!-- Home -->
+        <section class="screen" id="s-home" aria-label="M&amp;M Coach home">
+          <div class="topbar">
+            <button class="round-btn" type="button" aria-disabled="true" aria-label="Profile (demo)" tabindex="-1">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3.2" fill="currentColor" stroke="none"/><path d="M5.8 18.2c1.6-2.6 4-3.6 6.2-3.6s4.6 1 6.2 3.6" /></svg>
+            </button>
+            <button class="round-btn" type="button" aria-disabled="true" tabindex="-1">Edit</button>
+          </div>
+          <h2 class="app-title">M &amp; M Coach</h2>
+          <p class="app-sub">Case conference preparation</p>
+
+          <div class="specialty">
+            <label for="specialty">Specialty</label>
+            <select id="specialty"></select>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2c3440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></svg>
+          </div>
+
+          <button class="start-btn" id="start-new" type="button">
+            <span class="mic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+            <span><strong>Start a New Case</strong><span class="s">Dictate or enter a clinical case summary</span></span>
+          </button>
+          <p class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="#5f6773" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2h1.2c.9 0 1.8.9 1.8 1.8v8.4c0 .9-.9 1.8-1.8 1.8H5.8C4.9 22 4 21.1 4 20.2v-8.4C4 10.9 4.9 10 5.8 10H7Zm2 0h6V8a3 3 0 0 0-6 0v2Z"/></svg>Do not include patient identifiers, dates, or locations.</p>
+
+          <h3 class="section-h">Recent Cases</h3>
+          <div id="recent"></div>
+        </section>
+
+        <!-- Narrative input -->
+        <section class="screen col" id="s-entry" hidden aria-label="New case">
+          <div class="topbar center">
+            <button class="round-btn" id="cancel-entry" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>New Case</h2><span></span>
+          </div>
+          <div class="body">
+            <h2 class="big-h">Describe the case</h2>
+            <p class="lead">Present it as you would at M&amp;M conference. Do not include protected health information, including patient names, hospital or institution names, dates of service, or geographic locations.</p>
+            <div class="entry-card">
+              <p class="hint" id="hint">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+                <span id="hint-text">Demo: tap the microphone button below to dictate the sample case.</span>
+              </p>
+              <textarea id="summary" readonly placeholder="A 68-year-old man underwent CABG x3. He was initially stable in the ICU..." aria-label="Clinical case summary"></textarea>
+              <div class="dictate">
+                <button class="mic-btn pulse" id="mic" type="button" aria-label="Tap to dictate">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+                </button>
+                <span id="mic-label">Tap to dictate</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer"><button class="continue" id="continue" type="button" disabled>Continue</button></div>
+        </section>
+
+        <!-- Follow-up question (one screen per question) -->
+        <section class="screen col" id="s-chat" hidden aria-label="Follow-up question">
+          <div class="topbar center">
+            <button class="round-btn" id="back-q" type="button" aria-label="Back" style="padding:0">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0b1220" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <h2>Preparing Your Case</h2><span></span>
+          </div>
+          <div class="body">
+            <p class="q-label">I need one more detail:</p>
+            <h2 class="q-text" id="q-text"></h2>
+            <p class="hint demo-tip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="q-hint">Demo: tap the microphone button below to dictate the answer.</span></p>
+            <textarea class="answer-box" id="reply-input" readonly placeholder="Answer as you would explain it out loud..." aria-label="Your answer"></textarea>
+            <div class="dictate">
+              <button class="mic-btn pulse" id="q-mic" type="button" aria-label="Tap to dictate">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+              </button>
+              <span id="q-mic-label">Tap to dictate</span>
+            </div>
+          </div>
+          <div class="footer"><button class="continue" id="send" type="button" disabled>Submit Answer</button></div>
+        </section>
+
+        <!-- Preparing -->
+        <section class="screen col" id="s-prepare" hidden aria-label="Preparing your package">
+          <div class="topbar center"><span></span><h2>Preparing Your Case</h2><span></span></div>
+          <div class="prep" aria-live="polite"><div class="spinner" aria-hidden="true"></div><p>Preparing your package…</p></div>
+        </section>
+
+        <!-- Prepared case -->
+        <section class="screen col" id="s-package" hidden aria-label="Prepared case">
+          <div class="topbar center pkg-bar">
+            <button class="done-pill" id="back-home" type="button">Done</button>
+            <h2>Prepared Case</h2>
+            <span id="case-actions" class="icon-pill">
+              <button type="button" id="edit-btn" aria-label="Edit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1-4L16.5 4.5a2 2 0 0 1 3 3L8 19l-4 1ZM14 7l3 3"/></svg></button>
+              <button type="button" id="copy-btn" aria-label="Copy narrative"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M5 8v11a2 2 0 0 0 2 2h8"/></svg></button>
+            </span>
+          </div>
+          <div class="seg" role="tablist" id="tabs"></div>
+          <div class="body" id="tab-panel" role="tabpanel" style="padding-top:0"></div>
+        </section>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+
+      <div class="cta">
+        <p>The full app builds this package from your own cases, with PubMed abstracts searched automatically.</p>
+        <a class="primary-action" href="https://apps.apple.com/us/app/m-m-coach/id6803235748" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Bender Apps. Educational software only. Not a substitute for professional medical judgment.</p>
+    <a href="mailto:support@benderapps.dev">support@benderapps.dev</a>
+  </footer>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const $ = (id) => document.getElementById(id);
+    const screens = { home: $("s-home"), entry: $("s-entry"), chat: $("s-chat"), prep: $("s-prepare"), pkg: $("s-package") };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fakeRecent = [
+      { text: "A 71-year-old woman presented with a symptomatic carotid stenosis and underw…", date: "Demo sample" },
+      { text: "This is a case of a 63-year-old man with a chronic type B aortic dissection…", date: "Demo sample" }
+    ];
+    let cases = [], current = null, turn = 0, finished = [];
+
+    // If the phone's top edge is scrolled out of view, glide back up to it
+    function keepPhoneInView() {
+      const top = $("phone").getBoundingClientRect().top;
+      if (top < 70 || top > window.innerHeight * 0.6) {
+        $("phone").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      }
+    }
+
+    function show(name) {
+      for (const k in screens) screens[k].hidden = k !== name;
+      $("phone").classList.toggle("white", name !== "home" && name !== "entry");
+      screens[name].scrollTop = 0;
+      if (name === "home") renderRecent();
+      keepPhoneInView();
+    }
+
+    function el(tag, text, cls) {
+      const n = document.createElement(tag);
+      if (text != null) n.textContent = text;
+      if (cls) n.className = cls;
+      return n;
+    }
+
+    function trunc(t, n) { return t.length > n ? t.slice(0, n - 1).trimEnd() + "…" : t; }
+
+    function renderRecent() {
+      const box = $("recent");
+      box.replaceChildren();
+      const rows = finished.map((c) => ({ text: trunc(c.summary, 78), date: "Just now", isNew: true })).concat(fakeRecent);
+      rows.forEach((r) => {
+        const row = el("div", null, "case-row" + (r.isNew ? " new" : ""));
+        const left = el("div");
+        left.appendChild(el("p", r.text));
+        left.appendChild(el("p", r.date, "date"));
+        row.appendChild(left);
+        row.appendChild(el("span", "Completed", "badge"));
+        box.appendChild(row);
+      });
+    }
+
+    // Types text into a read-only field, then calls done()
+    function simulateTyping(field, text, done) {
+      field.value = "";
+      if (reduceMotion) { field.value = text; done(); return; }
+      let i = 0;
+      const tick = () => {
+        i = Math.min(text.length, i + 1 + (Math.random() < 0.4 ? 1 : 0));
+        field.value = text.slice(0, i);
+        field.scrollTop = field.scrollHeight;
+        if (i >= text.length) { done(); return; }
+        const last = text[i - 1];
+        const pause = /[.?!]/.test(last) ? 280 : /[,;:]/.test(last) ? 140 : 0;
+        setTimeout(tick, 10 + Math.random() * 20 + pause);
+      };
+      setTimeout(tick, 500);
+    }
+
+    function askNext() {
+      if (turn < current.followUps.length) {
+        const q = current.followUps[turn];
+        $("q-text").textContent = q.question;
+        $("reply-input").value = "";
+        $("send").disabled = true;
+        $("q-mic").disabled = false;
+        $("q-mic").classList.add("pulse");
+        $("q-mic").classList.remove("live");
+        $("q-mic-label").textContent = "Tap to dictate";
+        $("q-hint").textContent = "Demo: tap the microphone button below to dictate the answer.";
+        show("chat");
+      } else {
+        show("prep");
+        setTimeout(() => { finished.unshift(current); renderPackage(); show("pkg"); }, 3500);
+      }
+    }
+
+    function dictateAnswer() {
+      const mic = $("q-mic");
+      mic.disabled = true;
+      mic.classList.remove("pulse");
+      mic.classList.add("live");
+      $("q-mic-label").textContent = "Listening…";
+      $("q-hint").textContent = "Listening… the sample answer is being dictated.";
+      simulateTyping($("reply-input"), current.followUps[turn].answer, () => {
+        mic.classList.remove("live");
+        $("q-mic-label").textContent = "Tap to dictate";
+        $("q-hint").textContent = "Answer ready. Tap Submit Answer to continue.";
+        $("send").disabled = false;
+        $("send").focus({ preventScroll: true });
+      });
+    }
+
+    function startCase() {
+      current = cases.find((c) => c.specialty === $("specialty").value);
+      turn = 0;
+      $("summary").value = "";
+      $("continue").disabled = true;
+      $("mic").classList.add("pulse");
+      $("mic").classList.remove("live");
+      $("mic").disabled = false;
+      $("mic-label").textContent = "Tap to dictate";
+      $("hint-text").textContent = "Demo: tap the microphone button below to dictate the sample case.";
+      show("entry");
+    }
+
+    // Tapping the mic plays the sample dictation into the text box
+    function dictate() {
+      const mic = $("mic");
+      mic.disabled = true;
+      mic.classList.remove("pulse");
+      mic.classList.add("live");
+      $("mic-label").textContent = "Listening…";
+      $("hint-text").textContent = "Listening… the sample case is being dictated.";
+      simulateTyping($("summary"), current.summary, () => {
+        mic.classList.remove("live");
+        $("mic-label").textContent = "Tap to dictate";
+        $("hint-text").textContent = "Dictation complete. Tap Continue to go on.";
+        $("continue").disabled = false;
+        $("continue").focus({ preventScroll: true });
+      });
+    }
+
+    const ICONS = {
+      present: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4M8 9.5h6M8 12.5h4"/></svg>',
+      prepare: '<svg width="30" height="26" viewBox="0 0 30 26" fill="currentColor"><path d="M8 2h14a4 4 0 0 1 4 4v7a4 4 0 0 1-4 4h-3l-5 5v-5H8a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4Z"/><path d="M0 8v8a4 4 0 0 0 3 3.9V9.5A4 4 0 0 0 0 8Z"/></svg>',
+      refs: '<svg width="28" height="26" viewBox="0 0 28 26" fill="currentColor"><rect x="1" y="4" width="6" height="21" rx="1.5"/><rect x="9" y="1" width="6" height="24" rx="1.5"/><path d="m17.5 5 5-1.6 5 17-5 1.6z"/></svg>',
+      faculty: '<svg width="30" height="26" viewBox="0 0 30 26" fill="currentColor"><circle cx="10" cy="8" r="5.5"/><path d="M0 24c0-5 4.5-8 10-8s10 3 10 8Z"/><text x="21" y="10" font-size="12" font-weight="700" font-family="sans-serif">?</text></svg>',
+      search: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#858a94" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>',
+      chev: '<svg width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 4 7 7-7 7"/></svg>'
+    };
+    let toastTimer;
+    function toast(msg) {
+      const t = $("toast");
+      t.textContent = msg; t.classList.add("on");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("on"), 2200);
+    }
+    function secHead(icon, text) {
+      const h = el("div", null, "sec-h");
+      h.insertAdjacentHTML("beforeend", ICONS[icon]);
+      h.appendChild(el("span", text));
+      return h;
+    }
+
+    function renderTab(key) {
+      const p = $("tab-panel");
+      p.replaceChildren();
+      p.scrollTop = 0;
+      for (const t of $("tabs").children) t.setAttribute("aria-selected", t.dataset.key === key);
+      $("case-actions").style.visibility = key === "case" ? "visible" : "hidden";
+      if (key === "case") {
+        const b = el("button", null, "present");
+        b.type = "button";
+        b.insertAdjacentHTML("beforeend", ICONS.present + "<span>Present</span>");
+        b.addEventListener("click", () => toast("Present mode is available in the full app."));
+        p.appendChild(b);
+        p.appendChild(el("p", current.narrative, "case-text"));
+      }
+      if (key === "prepare") {
+        p.appendChild(secHead("prepare", "Be Prepared to Discuss"));
+        current.prepare.forEach((it) => {
+          const card = el("div", null, "pcard");
+          card.appendChild(el("h4", it.title));
+          card.appendChild(el("p", it.background, "bg"));
+          const d = el("p", null, "dl");
+          d.appendChild(el("strong", "Be prepared to discuss:"));
+          d.appendChild(document.createTextNode(it.discuss));
+          card.appendChild(d);
+          p.appendChild(card);
+        });
+      }
+      if (key === "questions") {
+        p.appendChild(secHead("faculty", "Likely Faculty Questions"));
+        current.facultyQuestions.forEach((q, i) => {
+          const card = el("div", null, "qcard");
+          card.appendChild(el("span", String(i + 1), "n"));
+          card.appendChild(el("span", q, "t"));
+          card.insertAdjacentHTML("beforeend", ICONS.chev);
+          p.appendChild(card);
+        });
+      }
+      if (key === "refs") {
+        p.appendChild(secHead("refs", "References"));
+        current.references.forEach((r) => {
+          const card = el("div", null, "pcard");
+          card.appendChild(el("h4", r.title));
+          const rd = el("p", null, "rd");
+          rd.insertAdjacentHTML("beforeend", ICONS.search);
+          rd.appendChild(el("span", r.description));
+          card.appendChild(rd);
+          const f = el("div", null, "foot");
+          f.appendChild(el("em", "Not yet verified"));
+          const a = el("a", "Search PubMed ›");
+          a.href = "https://pubmed.ncbi.nlm.nih.gov/?term=" + encodeURIComponent(r.query);
+          a.target = "_blank"; a.rel = "noopener noreferrer";
+          f.appendChild(a);
+          card.appendChild(f);
+          p.appendChild(card);
+        });
+      }
+    }
+
+    function renderPackage() {
+      const tabs = $("tabs");
+      tabs.replaceChildren();
+      [["case", "Case"], ["prepare", "Prepare"], ["questions", "Questions"], ["refs", "References"]].forEach(([k, label]) => {
+        const b = el("button", label);
+        b.type = "button"; b.dataset.key = k; b.setAttribute("role", "tab");
+        b.addEventListener("click", () => renderTab(k));
+        tabs.appendChild(b);
+      });
+      renderTab("case");
+    }
+
+    $("edit-btn").addEventListener("click", () => toast("Editing is available in the full app."));
+    $("copy-btn").addEventListener("click", () => {
+      const done = () => toast("Narrative copied.");
+      if (navigator.clipboard) navigator.clipboard.writeText(current.narrative).then(done, done); else done();
+    });
+
+    $("start-new").addEventListener("click", startCase);
+    $("cancel-entry").addEventListener("click", () => show("home"));
+    $("back-home").addEventListener("click", () => show("home"));
+
+    $("mic").addEventListener("click", dictate);
+    $("continue").addEventListener("click", () => askNext());
+    $("q-mic").addEventListener("click", dictateAnswer);
+    $("back-q").addEventListener("click", () => {
+      if (turn > 0) { turn--; askNext(); } else show("entry");
+    });
+    $("send").addEventListener("click", () => { turn++; askNext(); });
+
+    fetch("cases.json").then((r) => r.json()).then((data) => {
+      cases = data;
+      const sel = $("specialty");
+      cases.forEach((c) => sel.appendChild(el("option", c.specialty)));
+      sel.value = "Vascular Surgery";
+      renderRecent();
+    }).catch(() => {
+      $("recent").textContent = "Could not load the sample cases. Please refresh the page.";
+    });
+  </script>
+</body>
+</html>

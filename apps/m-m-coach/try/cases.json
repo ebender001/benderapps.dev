@@ -1,0 +1,203 @@
+[
+  {
+    "id": "esophagectomy-leak",
+    "specialty": "Cardiothoracic Surgery",
+    "title": "Anastomotic leak after Ivor Lewis esophagectomy",
+    "synopsis": "A delayed leak recognized on postoperative day 6.",
+    "summary": "66-year-old man with a distal esophageal adenocarcinoma, status post neoadjuvant chemoradiation, underwent an Ivor Lewis esophagectomy. He did well initially and was started on a clear liquid diet on day 5. On day 6 he developed tachycardia, fever, and a rising white count. CT showed a contained intrathoracic fluid collection at the anastomosis. He required endoscopic intervention and a prolonged ICU stay.",
+    "followUps": [
+      {
+        "question": "Walk me through the chronology between the operation and the first sign of trouble. What were the vitals and labs on days 3 through 5?",
+        "answer": "Days 1 to 3 were unremarkable and he was extubated on day 1. On day 4 his heart rate drifted from the 80s to the mid 90s and his white count rose from 9 to 12. We attributed it to atelectasis. A contrast swallow was not done before starting liquids on day 5."
+      },
+      {
+        "question": "What were the key decision points, and what was the reasoning at each one?",
+        "answer": "Two decision points stand out. First, we did not obtain a routine contrast study before advancing diet, which is our usual practice for most patients but was skipped that week. Second, when the heart rate rose on day 4, we treated it as a pulmonary cause rather than pursuing the anastomosis."
+      },
+      {
+        "question": "How was the leak managed once identified?",
+        "answer": "CT and endoscopy confirmed a 30% circumferential defect with a contained collection. We placed a covered esophageal stent, drained the collection with a percutaneous chest tube, started broad-spectrum antibiotics and antifungals, and placed a feeding jejunostomy for nutrition."
+      },
+      {
+        "question": "What was the outcome?",
+        "answer": "The leak sealed at three weeks and the stent was removed at six weeks. He had a 24-day hospital stay, including 9 ICU days, and was discharged on oral diet. There was no mortality, but he had a prolonged recovery."
+      }
+    ],
+    "narrative": "A 66-year-old man with distal esophageal adenocarcinoma completed neoadjuvant chemoradiation and underwent an uncomplicated Ivor Lewis esophagectomy. His early course was routine, with extubation on postoperative day 1. A low-grade upward trend in heart rate and white count on day 4 was attributed to atelectasis, and clear liquids were started on day 5 without a contrast study. On day 6 he developed fever, tachycardia, and leukocytosis. CT demonstrated a contained intrathoracic collection, and endoscopy confirmed a 30% circumferential anastomotic defect. He was managed with a covered esophageal stent, percutaneous drainage, antimicrobial therapy, and enteral access via jejunostomy. The leak sealed by three weeks, and he was discharged on postoperative day 24 tolerating an oral diet. The key learning points are early recognition of subtle physiologic change and consistent use of an anastomotic assessment before oral intake.",
+    "facultyQuestions": [
+      "What other causes of postoperative tachycardia did you consider, and why did anastomotic leak not rise higher on that list?",
+      "What is your institution's policy for assessing the anastomosis before starting oral intake, and was it followed?",
+      "When would you have taken this patient back to the operating room instead of stenting?",
+      "How did the neoadjuvant radiation affect your assessment of conduit perfusion?",
+      "What would you change in the care pathway to prevent this event?"
+    ],
+    "references": [
+      {
+        "title": "Esophagectomy complication benchmarks",
+        "description": "Find benchmark data on anastomotic leak rates and outcomes after esophagectomy.",
+        "query": "benchmarking complications associated with esophagectomy"
+      },
+      {
+        "title": "Management of anastomotic leak after esophagectomy",
+        "description": "Review evidence comparing endoscopic stenting, drainage, and surgical management of leaks.",
+        "query": "anastomotic leak after esophagectomy stent management"
+      },
+      {
+        "title": "Contrast swallow before oral intake after esophagectomy",
+        "description": "Look for studies on routine versus selective imaging before starting oral diet.",
+        "query": "routine contrast swallow esophagectomy anastomotic leak detection"
+      }
+    ],
+    "prepare": [
+      {
+        "title": "Recognizing anastomotic leak early",
+        "background": "Unexplained tachycardia and a rising white count are often the first signs of a leak, before fever or chest pain appear.",
+        "discuss": "Be ready to explain what you attributed the day 4 heart rate and white count to, and which findings should have prompted anastomotic imaging."
+      },
+      {
+        "title": "Assessing the anastomosis before oral intake",
+        "background": "Practice varies between routine contrast studies and selective imaging before starting liquids. Skipping the check removes a safety net.",
+        "discuss": "Discuss your institution's pathway, why it was not followed here, and how you would standardize it."
+      },
+      {
+        "title": "Choosing stent, drainage, or re-operation",
+        "background": "Defect size, contamination, conduit viability, and physiology guide the choice between endoscopic and operative management.",
+        "discuss": "Explain why a covered stent with drainage was appropriate for a 30% defect, and what findings would have led to re-exploration."
+      }
+    ]
+  },
+  {
+    "id": "raaa-delay",
+    "specialty": "Vascular Surgery",
+    "title": "Ruptured AAA with delayed recognition",
+    "synopsis": "Back pain mislabeled as renal colic in a hypotensive patient.",
+    "summary": "74-year-old man with a history of hypertension and tobacco use presented to a community emergency department with sudden flank and back pain. He was treated for presumed renal colic and sent for a non-contrast CT after a delay. The CT showed a ruptured infrarenal abdominal aortic aneurysm. He was transferred and underwent emergent endovascular repair. He survived but had acute kidney injury and a prolonged stay.",
+    "followUps": [
+      {
+        "question": "Give me the timeline from arrival to diagnosis. When was the first blood pressure recorded and what was it?",
+        "answer": "Arrival at 14:10 with a blood pressure of 108/62. He was given IV fluids and analgesia for presumed renal colic. At 15:40 he became hypotensive at 82/50. Non-contrast CT was obtained at 16:05 and read at 16:25 as a ruptured AAA."
+      },
+      {
+        "question": "What were the main decision points before transfer, and what drove them?",
+        "answer": "The initial anchor was renal colic given the flank location and the microscopic hematuria on urinalysis. A bedside ultrasound to look for the aorta was not performed. After diagnosis, the delay to transfer was about 70 minutes while arranging a vascular team and bed."
+      },
+      {
+        "question": "What operation did you choose and why?",
+        "answer": "He had favorable anatomy on the CT, with an adequate neck and iliac access, so we chose emergent endovascular repair with local anesthesia and permissive hypotension. Balloon occlusion was available but not needed."
+      },
+      {
+        "question": "What was the outcome?",
+        "answer": "He survived and was extubated the same day. He developed stage 2 acute kidney injury from contrast and hypotension and recovered renal function by discharge. He was in the hospital for 11 days. A type II endoleak was seen on follow-up imaging and is being observed."
+      }
+    ],
+    "narrative": "A 74-year-old man with hypertension and tobacco use presented to a community emergency department with sudden flank and back pain. Initial blood pressure was preserved at 108/62, and the presentation was attributed to renal colic on the basis of flank pain and microscopic hematuria. No bedside aortic assessment was performed. Ninety minutes after arrival he became hypotensive, and a non-contrast CT identified a ruptured infrarenal abdominal aortic aneurysm. After a transfer delay of about 70 minutes, he underwent emergent endovascular repair under local anesthesia with permissive hypotension. He recovered with stage 2 acute kidney injury that resolved, and a type II endoleak is under surveillance. This case illustrates anchoring bias in the evaluation of back pain in older patients with vascular risk factors and the importance of early bedside aortic imaging.",
+    "facultyQuestions": [
+      "Which features of this presentation should have raised suspicion for a vascular cause earlier?",
+      "How do you decide between endovascular and open repair in a ruptured aneurysm?",
+      "What blood pressure target do you use before control is obtained, and why?",
+      "How would you handle a patient who is stable enough for CT but has a suspected rupture?",
+      "What system change would shorten the interval from diagnosis to repair?"
+    ],
+    "references": [
+      {
+        "title": "IMPROVE trial: endovascular or open repair for ruptured AAA",
+        "description": "Review randomized evidence comparing endovascular and open repair strategies for rupture.",
+        "query": "IMPROVE randomised trial endovascular open repair ruptured abdominal aortic aneurysm"
+      },
+      {
+        "title": "Society for Vascular Surgery AAA guidelines",
+        "description": "Find guideline recommendations on diagnosis and management of ruptured aneurysms.",
+        "query": "Society for Vascular Surgery practice guidelines abdominal aortic aneurysm"
+      },
+      {
+        "title": "Permissive hypotension in ruptured AAA",
+        "description": "Look for evidence on blood pressure targets and resuscitation strategy before aortic control.",
+        "query": "permissive hypotension ruptured abdominal aortic aneurysm resuscitation"
+      }
+    ],
+    "prepare": [
+      {
+        "title": "Anchoring bias in flank and back pain",
+        "background": "Hematuria and flank pain can mimic renal colic, and an initially preserved blood pressure may falsely reassure.",
+        "discuss": "Be ready to explain what features of the presentation should have raised concern for a vascular cause."
+      },
+      {
+        "title": "Bedside aortic assessment",
+        "background": "Point-of-care ultrasound can identify an aneurysm within minutes and changes the urgency of the workup.",
+        "discuss": "Discuss why it was not done here and how earlier use would have shortened time to repair."
+      },
+      {
+        "title": "Endovascular versus open repair for rupture",
+        "background": "Favorable anatomy, access, and a stable enough patient favor an endovascular approach, with permissive hypotension until control.",
+        "discuss": "Explain the anatomic criteria you used and your blood pressure target before aortic control."
+      }
+    ]
+  },
+  {
+    "id": "bile-duct-injury",
+    "specialty": "General Surgery",
+    "title": "Bile duct injury during laparoscopic cholecystectomy",
+    "synopsis": "A misidentified structure in an inflamed Calot's triangle.",
+    "summary": "52-year-old woman with acute cholecystitis underwent laparoscopic cholecystectomy on hospital day 2. Dissection was difficult because of dense inflammation. The critical view of safety was not clearly achieved, and a structure was clipped and divided. On postoperative day 2 she had abdominal pain, rising bilirubin, and a bile collection on imaging. She was transferred to a hepatobiliary center for reconstruction.",
+    "followUps": [
+      {
+        "question": "Describe the operative findings and the point at which you decided to proceed or change course.",
+        "answer": "Calot's triangle was densely inflamed and the anatomy was obscured. We took down some of the adhesions and identified what we believed was the cystic duct. We did not obtain a full critical view of safety, but the structure looked tubular and we proceeded to clip and divide."
+      },
+      {
+        "question": "What bailout options were available, and why were they not used?",
+        "answer": "A subtotal cholecystectomy or a fundus-first approach was possible, and conversion to open was available. We were early in a long day and underestimated how inflamed the field was. Intraoperative cholangiography was not performed."
+      },
+      {
+        "question": "How was the injury recognized and managed?",
+        "answer": "She had pain and jaundice on day 2, with bilirubin of 5.8 and a right upper quadrant collection on CT. HIDA showed a leak, and MRCP showed a Strasberg E-type injury. We placed a percutaneous drain and transferred her to a hepatobiliary center for reconstruction."
+      },
+      {
+        "question": "What was the outcome?",
+        "answer": "She underwent a Roux-en-Y hepaticojejunostomy six weeks later after the inflammation settled. She did well after surgery, and she is under long-term surveillance for anastomotic stricture."
+      }
+    ],
+    "narrative": "A 52-year-old woman with acute cholecystitis underwent laparoscopic cholecystectomy on hospital day 2. Dense inflammation obscured Calot's triangle, and a tubular structure presumed to be the cystic duct was clipped and divided without achieving the critical view of safety and without cholangiography. On postoperative day 2 she developed pain, jaundice, and a right upper quadrant collection; imaging demonstrated a bile leak and a Strasberg E-type injury. After percutaneous drainage she was transferred to a hepatobiliary center and underwent Roux-en-Y hepaticojejunostomy at six weeks. She recovered without early complication and remains under surveillance for stricture. Key lessons are the discipline of the critical view of safety, early recourse to bailout strategies such as subtotal cholecystectomy, and prompt referral for complex biliary reconstruction.",
+    "facultyQuestions": [
+      "What are the three criteria of the critical view of safety, and were they met here?",
+      "At what point should a surgeon decide to stop and use a bailout approach?",
+      "How does the Strasberg classification guide the repair?",
+      "What is the role of cholangiography in preventing this type of injury?",
+      "Why is early referral to a hepatobiliary center important, and what should be done before transfer?"
+    ],
+    "references": [
+      {
+        "title": "Biliary injury during laparoscopic cholecystectomy",
+        "description": "Find the classic analysis and classification of bile duct injuries.",
+        "query": "analysis of the problem of biliary injury during laparoscopic cholecystectomy"
+      },
+      {
+        "title": "Critical view of safety",
+        "description": "Review the rationale and technique for the critical view of safety.",
+        "query": "rationale and use of the critical view of safety in laparoscopic cholecystectomy"
+      },
+      {
+        "title": "Safe cholecystectomy guideline",
+        "description": "Look for multi-society recommendations on preventing bile duct injury.",
+        "query": "safe cholecystectomy multi-society practice guideline bile duct injury"
+      }
+    ],
+    "prepare": [
+      {
+        "title": "The critical view of safety",
+        "background": "The critical view requires a cleared hepatocystic triangle, the lower gallbladder separated from the liver bed, and two structures entering the gallbladder.",
+        "discuss": "Be ready to explain which criteria were not met here and why proceeding without them was unsafe."
+      },
+      {
+        "title": "Bailout strategies in a difficult gallbladder",
+        "background": "Subtotal cholecystectomy, fundus-first dissection, and conversion to open reduce the risk of injury when the anatomy is obscured.",
+        "discuss": "Discuss when you should have stopped, and why fatigue and time pressure are not reasons to continue."
+      },
+      {
+        "title": "Recognition and referral",
+        "background": "Early recognition and drainage, followed by referral to a hepatobiliary center, improve outcomes for major bile duct injuries.",
+        "discuss": "Explain the Strasberg classification of this injury and why repair was delayed for six weeks."
+      }
+    ]
+  }
+]
