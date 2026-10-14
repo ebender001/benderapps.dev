@@ -1,0 +1,230 @@
+[
+  {
+    "id": "left-main-nstemi",
+    "title": "Tight left main stenosis with NSTEMI",
+    "summary": "A 64-year-old woman with type 2 diabetes and hypertension presented with two days of intermittent chest pressure and was diagnosed with a non-ST-elevation myocardial infarction. Troponin was elevated, and the ECG showed diffuse ST depression. Coronary angiography showed a 90% distal left main stenosis involving the LAD and circumflex ostia, a 70% proximal LAD lesion, and a 50% mid RCA lesion. Ejection fraction was 50%. She is pain free on heparin and has been loaded with ticagrelor. She is being presented to the heart team for revascularization planning.",
+    "followUps": [
+      {
+        "question": "Is the patient hemodynamically and electrically stable, and are symptoms controlled on medical therapy?",
+        "answer": "Yes. She has been pain free for 18 hours on a heparin infusion, beta blocker, and high-intensity statin. Blood pressure is 128/74, there are no arrhythmias, and troponin has plateaued.",
+        "tag": "clinical status",
+        "why": "Stability on medical therapy determines whether surgery can be planned electively or must be urgent."
+      },
+      {
+        "question": "What is the coronary anatomy in more detail: SYNTAX score, dominance, and distal targets?",
+        "answer": "The system is right dominant. The SYNTAX score is 33 because of the distal bifurcation left main lesion plus proximal LAD disease. The mid LAD, the obtuse marginal branch, and the distal RCA all appear to be adequate bypass targets.",
+        "tag": "imaging",
+        "why": "Understanding the coronary anatomy and SYNTAX score is crucial for choosing between PCI and CABG."
+      },
+      {
+        "question": "What are her comorbidities and estimated surgical risk?",
+        "answer": "She has insulin-requiring type 2 diabetes with an A1c of 8.1, hypertension, and a BMI of 31. Creatinine is 0.9 and there is no significant lung disease. Her STS predicted mortality is about 1.8%.",
+        "tag": "risk",
+        "why": "Comorbidities and the STS risk estimate shape the operative plan and the heart team's recommendation."
+      },
+      {
+        "question": "What is the antiplatelet status, and are conduits suitable?",
+        "answer": "She received a ticagrelor load 20 hours ago, plus aspirin. Both internal mammary arteries are suitable on exam and imaging, and her saphenous veins are adequate on vein mapping.",
+        "tag": "antiplatelet therapy",
+        "why": "P2Y12 inhibitor exposure affects the timing of surgery and the risk of perioperative bleeding."
+      }
+    ],
+    "narrative": "A 64-year-old woman with insulin-requiring type 2 diabetes and hypertension presented with a non-ST-elevation myocardial infarction. Coronary angiography demonstrated a 90% distal left main stenosis involving the LAD and circumflex ostia, a 70% proximal LAD stenosis, and a 50% mid RCA stenosis, with a right dominant system and a SYNTAX score of 33. Left ventricular ejection fraction is 50%. She is hemodynamically stable and pain free on heparin, beta blocker, and a high-intensity statin, and she has received a ticagrelor load. Her STS predicted mortality is about 1.8%, with suitable internal mammary and saphenous vein conduits. The question for the heart team is the optimal revascularization strategy and the timing of surgery relative to P2Y12 inhibitor exposure.",
+    "report": [
+      {
+        "title": "Diagnosis and indication",
+        "background": "Significant left main disease with an acute coronary syndrome is a high-risk lesion with a survival indication for revascularization.",
+        "label": "Key points: ",
+        "text": "A 90% distal left main stenosis with proximal LAD disease in a patient with diabetes. Revascularization is indicated, and the question is which strategy and when."
+      },
+      {
+        "title": "Missing information",
+        "background": "A few details could change the plan or the timing.",
+        "label": "Ask before conference: ",
+        "text": "Frailty and functional status, carotid disease screening, details of the left main bifurcation, and the date and time of the last P2Y12 inhibitor dose."
+      },
+      {
+        "title": "Operative strategy",
+        "background": "Arterial grafting offers the best durability in a younger patient with diabetes.",
+        "label": "Plan to present: ",
+        "text": "Coronary artery bypass grafting with the left internal mammary artery to the LAD and additional grafts to the obtuse marginal and RCA, with a second arterial conduit considered."
+      },
+      {
+        "title": "Controversies",
+        "background": "PCI of left main disease is an option in selected patients, but anatomic complexity and diabetes weigh toward surgery. Timing of surgery after P2Y12 loading is a real tradeoff.",
+        "label": "Be ready to discuss: ",
+        "text": "CABG versus PCI at a SYNTAX score of 33, and whether to wait for P2Y12 washout in a stable patient or operate sooner on bridging therapy."
+      }
+    ],
+    "team": [
+      {
+        "label": "Surgeon",
+        "icon": "surgeon",
+        "role": "Cardiac surgeon",
+        "headline": "Proceed with coronary artery bypass grafting (CABG) once she is off P2Y12 inhibitors.",
+        "cor": "Class I",
+        "loe": "LOE B-R",
+        "text": "A 90% distal left main stenosis with a SYNTAX score of 33 and insulin-requiring diabetes favors surgical revascularization for durability and survival. Her surgical risk is low, with an STS predicted mortality of about 1.8%, and both internal mammary arteries are usable. Because she is stable and pain free on heparin and a beta blocker, it is reasonable to wait several days for ticagrelor washout and limit bleeding, rather than operating on bridging therapy. The main open question is how long to wait.",
+        "title": "Cardiac Surgeon",
+        "evidence": {
+          "supports": [
+            {
+              "title": "Percutaneous coronary angioplasty versus coronary artery bypass grafting in the treatment of unprotected left main stenosis: updated 5-year outcomes from the randomised, non-inferiority NOBLE trial.",
+              "journal": "Lancet",
+              "year": 2020
+            },
+            {
+              "title": "Long-Term Survival Following Multivessel Revascularization in Patients With Diabetes: The FREEDOM Follow-On Study.",
+              "journal": "J Am Coll Cardiol",
+              "year": 2019
+            },
+            {
+              "title": "2021 ACC/AHA/SCAI Guideline for Coronary Artery Revascularization: A Report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines.",
+              "journal": "Circulation",
+              "year": 2022
+            },
+            {
+              "title": "Coronary artery bypass grafting-related bleeding complications in patients treated with ticagrelor or clopidogrel: a nationwide study.",
+              "journal": "Eur Heart J",
+              "year": 2016
+            },
+            {
+              "title": "PCI and CABG for Treating Stable Coronary Artery Disease: JACC Review Topic of the Week.",
+              "journal": "J Am Coll Cardiol",
+              "year": 2019
+            }
+          ],
+          "against": [
+            {
+              "title": "Everolimus-Eluting Stents or Bypass Surgery for Left Main Coronary Artery Disease.",
+              "journal": "N Engl J Med",
+              "year": 2016
+            },
+            {
+              "title": "Five-Year Outcomes after PCI or CABG for Left Main Coronary Disease.",
+              "journal": "N Engl J Med",
+              "year": 2019
+            },
+            {
+              "title": "Percutaneous coronary intervention with drug-eluting stents versus coronary artery bypass grafting in left main coronary artery disease: an individual patient data meta-analysis.",
+              "journal": "Lancet",
+              "year": 2021
+            },
+            {
+              "title": "Percutaneous coronary intervention versus coronary artery bypass grafting in patients with three-vessel or left main coronary artery disease: 10-year follow-up of the multicentre randomised controlled SYNTAX trial.",
+              "journal": "Lancet",
+              "year": 2019
+            }
+          ]
+        }
+      },
+      {
+        "label": "Non-Interventional",
+        "icon": "noninv",
+        "role": "Non-interventional cardiologist",
+        "headline": "Medically stabilize, then refer for CABG.",
+        "cor": "Class I",
+        "loe": "LOE A",
+        "text": "Her NSTEMI is controlled and her ventricular function is preserved, so there is time to optimize before revascularization. Continue heparin, a high-intensity statin, and a beta blocker, and improve glycemic control with an A1c of 8.1. Revascularization is indicated to improve survival in left main disease, and I support the surgical strategy. I would reconsider if she declines surgery or if a frailty assessment changes her risk profile.",
+        "title": "Non-Interventional Cardiologist",
+        "evidence": {
+          "supports": [
+            {
+              "title": "2021 ACC/AHA/SCAI Guideline for Coronary Artery Revascularization: A Report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines.",
+              "journal": "Circulation",
+              "year": 2022
+            },
+            {
+              "title": "2025 ACC/AHA/ACEP/NAEMSP/SCAI Guideline for the Management of Patients With Acute Coronary Syndromes.",
+              "journal": "Circulation",
+              "year": 2025
+            },
+            {
+              "title": "PCI and CABG for Treating Stable Coronary Artery Disease: JACC Review Topic of the Week.",
+              "journal": "J Am Coll Cardiol",
+              "year": 2019
+            },
+            {
+              "title": "Long-Term Survival Following Multivessel Revascularization in Patients With Diabetes: The FREEDOM Follow-On Study.",
+              "journal": "J Am Coll Cardiol",
+              "year": 2019
+            }
+          ],
+          "against": [
+            {
+              "title": "Everolimus-Eluting Stents or Bypass Surgery for Left Main Coronary Artery Disease.",
+              "journal": "N Engl J Med",
+              "year": 2016
+            },
+            {
+              "title": "Percutaneous coronary intervention with drug-eluting stents versus coronary artery bypass grafting in left main coronary artery disease: an individual patient data meta-analysis.",
+              "journal": "Lancet",
+              "year": 2021
+            },
+            {
+              "title": "Percutaneous coronary intervention versus coronary artery bypass grafting in patients with three-vessel or left main coronary artery disease: 10-year follow-up of the multicentre randomised controlled SYNTAX trial.",
+              "journal": "Lancet",
+              "year": 2019
+            }
+          ]
+        }
+      },
+      {
+        "label": "Interventional",
+        "icon": "inv",
+        "role": "Interventional cardiologist",
+        "headline": "PCI is feasible, but CABG is preferred at this anatomic complexity.",
+        "cor": "Class IIa",
+        "loe": "LOE B-R",
+        "text": "Left main PCI with intravascular imaging is technically possible, and outcomes are acceptable in low to medium anatomic complexity. This patient has a distal bifurcation lesion, a SYNTAX score of 33, and diabetes, which are the features where late events favor surgery. I would reserve PCI for prohibitive surgical risk or a patient who declines surgery after counseling, and I would plan a provisional stent strategy with imaging guidance.",
+        "title": "Interventional Cardiologist",
+        "evidence": {
+          "supports": [
+            {
+              "title": "Percutaneous coronary intervention with drug-eluting stents versus coronary artery bypass grafting in left main coronary artery disease: an individual patient data meta-analysis.",
+              "journal": "Lancet",
+              "year": 2021
+            },
+            {
+              "title": "Everolimus-Eluting Stents or Bypass Surgery for Left Main Coronary Artery Disease.",
+              "journal": "N Engl J Med",
+              "year": 2016
+            },
+            {
+              "title": "Percutaneous coronary intervention versus coronary artery bypass grafting in patients with three-vessel or left main coronary artery disease: 10-year follow-up of the multicentre randomised controlled SYNTAX trial.",
+              "journal": "Lancet",
+              "year": 2019
+            },
+            {
+              "title": "Five-Year Outcomes after PCI or CABG for Left Main Coronary Disease.",
+              "journal": "N Engl J Med",
+              "year": 2019
+            }
+          ],
+          "against": [
+            {
+              "title": "Percutaneous coronary angioplasty versus coronary artery bypass grafting in the treatment of unprotected left main stenosis: updated 5-year outcomes from the randomised, non-inferiority NOBLE trial.",
+              "journal": "Lancet",
+              "year": 2020
+            },
+            {
+              "title": "Percutaneous coronary angioplasty versus coronary artery bypass grafting in treatment of unprotected left main stenosis (NOBLE): a prospective, randomised, open-label, non-inferiority trial.",
+              "journal": "Lancet",
+              "year": 2016
+            },
+            {
+              "title": "Long-Term Survival Following Multivessel Revascularization in Patients With Diabetes: The FREEDOM Follow-On Study.",
+              "journal": "J Am Coll Cardiol",
+              "year": 2019
+            },
+            {
+              "title": "2021 ACC/AHA/SCAI Guideline for Coronary Artery Revascularization: A Report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines.",
+              "journal": "Circulation",
+              "year": 2022
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

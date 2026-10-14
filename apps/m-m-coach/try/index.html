@@ -175,7 +175,7 @@
             <div class="entry-card">
               <p class="hint" id="hint">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-                <span id="hint-text">Demo: tap the microphone button below to dictate the sample case.</span>
+                <span id="hint-text">Demo: scroll down and tap the microphone button to dictate the sample case.</span>
               </p>
               <textarea id="summary" readonly placeholder="A 68-year-old man underwent CABG x3. He was initially stable in the ICU..." aria-label="Clinical case summary"></textarea>
               <div class="dictate">
@@ -200,7 +200,7 @@
           <div class="body">
             <p class="q-label">I need one more detail:</p>
             <h2 class="q-text" id="q-text"></h2>
-            <p class="hint demo-tip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="q-hint">Demo: tap the microphone button below to dictate the answer.</span></p>
+            <p class="hint demo-tip"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="q-hint">Demo: scroll down and tap the microphone button to dictate the answer.</span></p>
             <textarea class="answer-box" id="reply-input" readonly placeholder="Answer as you would explain it out loud..." aria-label="Your answer"></textarea>
             <div class="dictate">
               <button class="mic-btn pulse" id="q-mic" type="button" aria-label="Tap to dictate">
@@ -266,9 +266,12 @@
     }
 
     function show(name) {
+      const wasVisible = !screens[name].hidden;
       for (const k in screens) screens[k].hidden = k !== name;
       $("phone").classList.toggle("white", name !== "home" && name !== "entry");
       screens[name].scrollTop = 0;
+      // Scroll the in-phone content back to the top (glide if this screen was already showing)
+      screens[name].querySelectorAll(".body").forEach((b) => b.scrollTo({ top: 0, behavior: wasVisible && !reduceMotion ? "smooth" : "auto" }));
       if (name === "home") renderRecent();
       keepPhoneInView();
     }
@@ -324,7 +327,7 @@
         $("q-mic").classList.add("pulse");
         $("q-mic").classList.remove("live");
         $("q-mic-label").textContent = "Tap to dictate";
-        $("q-hint").textContent = "Demo: tap the microphone button below to dictate the answer.";
+        $("q-hint").textContent = "Demo: scroll down and tap the microphone button to dictate the answer.";
         show("chat");
       } else {
         show("prep");
@@ -357,7 +360,7 @@
       $("mic").classList.remove("live");
       $("mic").disabled = false;
       $("mic-label").textContent = "Tap to dictate";
-      $("hint-text").textContent = "Demo: tap the microphone button below to dictate the sample case.";
+      $("hint-text").textContent = "Demo: scroll down and tap the microphone button to dictate the sample case.";
       show("entry");
     }
 
