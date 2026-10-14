@@ -164,6 +164,34 @@ h1 {
   backdrop-filter: blur(16px);
 }
 
+.demo-action {
+  gap: 8px;
+  border: 0;
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 12px 28px rgba(22, 99, 255, 0.28);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.demo-action:hover {
+  transform: translateY(-2px);
+  background: var(--accent-dark);
+}
+
+.demo-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .primary-action:hover,
 .secondary-action:hover {
   transform: translateY(-2px);
