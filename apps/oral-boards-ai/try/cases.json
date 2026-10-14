@@ -1,0 +1,52 @@
+[
+  {
+    "id": "post-mi-mr",
+    "specialty": "Cardiothoracic Surgery",
+    "presentation": [
+      "A 67-year-old man presents 3 days after an inferior myocardial infarction treated medically. He now develops sudden onset severe shortness of breath and appears acutely distressed.",
+      "On arrival, he is tachypneic and diaphoretic. Vital signs show heart rate 122, blood pressure 86/58, and oxygen saturation 88% on supplemental oxygen.",
+      "On examination, he has diffuse crackles and signs of pulmonary edema. A new systolic murmur is noted but is not prominent.",
+      "Chest radiograph demonstrates pulmonary edema.",
+      "Echocardiography reveals severe mitral regurgitation with a flail leaflet and hyperdynamic left ventricle."
+    ],
+    "turns": [
+      {
+        "question": "This patient has acute hemodynamic deterioration after MI—what is the first thing you do right now?",
+        "answer": "I would treat this as cardiogenic shock from acute severe mitral regurgitation, most likely papillary muscle rupture. First I would secure oxygenation and ventilation: high-flow oxygen, and intubation if he cannot maintain his saturation, since he is at 88%. I would get an arterial line and central access and start vasopressor or inotropic support for a pressure of 86/58, avoiding anything that drops his preload too far. I would call the cardiac surgery team and the cath lab right away."
+      },
+      {
+        "question": "He is intubated and on norepinephrine but remains hypotensive. What mechanical support would you consider, and why?",
+        "answer": "An intra-aortic balloon pump. It reduces afterload, which lowers the regurgitant fraction and increases forward flow, and it augments diastolic coronary perfusion. It is a bridge to surgery. If he is still failing, I would consider other temporary support, but I would be cautious with strategies that raise afterload."
+      },
+      {
+        "question": "What additional studies do you obtain before the operating room, and what are you looking for?",
+        "answer": "A transesophageal echo to confirm papillary muscle rupture, most likely the posteromedial head after an inferior infarct because it has a single blood supply, and to assess ventricular function and exclude a ventricular septal rupture. I want filling pressures from a central line or pulmonary artery catheter. I would also get coronary angiography if it does not delay surgery, since he may need bypass at the same operation."
+      },
+      {
+        "question": "Describe your operation and the key technical decisions.",
+        "answer": "Urgent surgery on cardiopulmonary bypass through a median sternotomy. Because the papillary muscle is ruptured and the infarcted tissue is friable, I would usually replace the mitral valve and preserve as much of the subvalvular apparatus as possible, rather than attempt a repair. I would bypass any significant coronary stenosis, typically with a vein graft to the culprit right coronary territory. Key points are myocardial protection and careful valve seating in friable tissue."
+      }
+    ],
+    "debrief": {
+      "summary": "You recognized acute severe mitral regurgitation from papillary muscle rupture, stabilized the patient, and described a sound operative plan.",
+      "covered": [
+        "Recognized papillary muscle rupture as the cause of shock",
+        "Secured oxygenation and started hemodynamic support",
+        "Involved the cardiac surgery team early",
+        "Used an intra-aortic balloon pump to reduce afterload",
+        "Confirmed the mechanism with echocardiography and excluded septal rupture",
+        "Planned mitral replacement with subvalvular preservation and bypass of culprit disease"
+      ],
+      "missed": [
+        "The role and limits of vasodilators such as nitroprusside when blood pressure allows",
+        "Emphasis that surgery should not be delayed to allow myocardial recovery",
+        "Specific hemodynamic targets before induction"
+      ],
+      "major": [],
+      "minor": [
+        "Did not state hemodynamic targets for the operating room",
+        "Coronary angiography timing could have been tied more clearly to stability"
+      ]
+    }
+  }
+]
