@@ -114,7 +114,8 @@
         category: "Thoracic surgery education",
         description: "Study and review thoracic surgery self-assessment content.",
         icon: "images/apps/sesats-10.png",
-        url: "https://apps.apple.com/us/app/sesats-10-with-ai/id1528818078"
+        url: "https://apps.apple.com/us/app/sesats-10-with-ai/id1528818078",
+        playUrl: "https://play.google.com/store/apps/details?id=com.cds.sesats10"
       },
       {
         name: "HeartChart",
@@ -146,7 +147,8 @@
         category: "Cardiothoracic literature",
         description: "A PubMed companion designed around cardiothoracic surgery topics.",
         icon: "images/apps/cardiothoraxia.png",
-        url: "https://apps.apple.com/us/app/cardiothoraxia/id6758521707"
+        url: "https://apps.apple.com/us/app/cardiothoraxia/id6758521707",
+        playUrl: "https://play.google.com/store/apps/details?id=com.cvoffice.cardiothoraxia"
       },
       {
         name: "CTSurg IX",
@@ -162,7 +164,8 @@
         category: "Cancer staging",
         description: "A practical staging reference for lung cancer education.",
         icon: "images/apps/lung-cancer-stage.png",
-        url: "https://apps.apple.com/us/app/lung-cancer-stage/id403036158"
+        url: "https://apps.apple.com/us/app/lung-cancer-stage/id403036158",
+        playUrl: "https://play.google.com/store/apps/details?id=com.cvoffice.lungcastage"
       },
       {
         name: "EuroSCORE II",
@@ -170,7 +173,8 @@
         category: "Cardiac risk calculation",
         description: "A mobile reference for EuroSCORE II cardiac surgical risk estimation.",
         icon: "images/apps/euroscore-ii.png",
-        url: "https://apps.apple.com/us/app/euroscore-ii/id473767507"
+        url: "https://apps.apple.com/us/app/euroscore-ii/id473767507",
+        playUrl: "https://play.google.com/store/apps/details?id=com.cvoffice.euroscore"
       },
       {
         name: "Lions Prey",
@@ -178,7 +182,8 @@
         category: "Lung cancer",
         description: "Estimate likelihood of lung mass being malignant",
         icon: "images/apps/lions-prey.png",
-        url: "https://apps.apple.com/us/app/lions-prey/id1585269322"
+        url: "https://apps.apple.com/us/app/lions-prey/id1585269322",
+        playUrl: "https://play.google.com/store/apps/details?id=com.cvoffice.lionsprey"
       }
     ];
 
@@ -209,7 +214,10 @@
           <h3>${app.name}</h3>
           <p>${app.description}</p>
         </div>
-        <a class="app-link" href="${app.url}" target="_blank" rel="noopener noreferrer">View on App Store</a>
+        <div class="store-links">
+          <a class="store-badge" href="${app.url}" target="_blank" rel="noopener noreferrer"><img src="/images/badges/app-store.svg" alt="Download on the App Store" height="44" /></a>
+          ${app.playUrl ? `<a class="store-badge store-badge-play" href="${app.playUrl}" target="_blank" rel="noopener noreferrer"><img src="/images/badges/google-play.png" alt="Get it on Google Play" height="44" /></a>` : ""}
+        </div>
         <a class="app-link secondary" href="/apps/${app.slug}/">Learn more</a>
       `;
 

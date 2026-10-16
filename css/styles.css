@@ -338,6 +338,45 @@ h1 {
   transition: transform 180ms ease, background 180ms ease;
 }
 
+.store-links {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.store-badge {
+  display: inline-flex;
+  transition: transform 180ms ease;
+}
+
+.store-badge:hover {
+  transform: translateY(-2px);
+}
+
+.store-badge img {
+  display: block;
+  width: auto;
+  height: 38px;
+}
+
+/* Google's badge PNG includes built-in clear space, so render it larger to match the App Store badge */
+.store-badge-play img {
+  height: 57px;
+  margin: -9.5px -8.5px;
+}
+
+.hero-actions .store-badge img {
+  height: 50px;
+}
+
+.hero-actions .store-badge-play img {
+  height: 75px;
+  margin: -12.5px -11px;
+}
+
 .app-link:hover {
   transform: translateY(-2px);
   background: var(--accent-dark);
