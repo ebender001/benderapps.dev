@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support | TUTE Calculator</title>
+
+  <style>
+    :root {
+      --bg: #f6f0e0;
+      --card: #ffffff;
+      --text: #1c1c1e;
+      --secondary: #6e6e73;
+      --accent: #17405f;
+      --border: #e5e0d2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #f8f3e6 0%, #efe7d2 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 20px 72px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4f75 0%, #0e2336 100%);
+      color: white;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 1.05rem;
+      opacity: 0.92;
+    }
+
+    .email {
+      font-weight: 600;
+    }
+
+    h3 {
+      margin: 18px 0 6px;
+      font-size: 1.05rem;
+    }
+
+    h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 0 0 12px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--secondary);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding-top: 24px;
+      }
+
+      .hero {
+        padding: 24px 20px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>TUTE Calculator Support</h1>
+      <p class="subtitle">
+        Help, answers, and contact information for the TUTE Calculator app.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Contact Support</h2>
+      <p>
+        For questions, bug reports, feature requests, or other assistance, please contact:
+      </p>
+      <p class="email">
+        <a href="mailto:support@benderapps.dev?subject=TUTE%20Calculator%20Support">support@benderapps.dev</a>
+      </p>
+      <p>To help resolve an issue quickly, please include:</p>
+      <ul>
+        <li>Your device model and operating system version (iOS or Android)</li>
+        <li>What you entered (sex, age, procedure mortality, annual mortality) and the result you saw</li>
+        <li>A brief description of what happened and what you expected</li>
+        <li>A screenshot, if you can</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>About the App</h2>
+      <p>
+        TUTE Calculator estimates the <strong>time until treatment equipoise</strong> (TUTE): how long after a
+        procedure it takes for the cumulative survival advantage of having the procedure to balance its up-front risk.
+        It is based on the method described by Noorani, Hippeläinen and Nashef in JAMA Surgery (2014).
+      </p>
+      <p>
+        The app is a decision-support and reference tool for clinicians. It should not replace clinical judgment,
+        multidisciplinary discussion, or a conversation with the patient.
+      </p>
+      <p>
+        <a href="https://doi.org/10.1001/jamasurg.2013.3066">Read the original article</a>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What do the two risk fields mean?</h3>
+      <p>
+        <strong>Procedure mortality</strong> is the chance, as a percentage, of dying as a result of the procedure itself.
+        <strong>Annual mortality, no procedure</strong> is the extra chance, as a percentage per year, of dying from the
+        condition if it is not treated. Both are added on top of normal population mortality for the patient’s age and sex.
+      </p>
+
+      <h3>What does “Treatment equipoise not reached” mean?</h3>
+      <p>
+        Within the model, the survival advantage of the procedure never balances its early risk before age 100.
+        For example, this can happen when the procedure carries a high risk and the untreated condition carries a low one.
+      </p>
+
+      <h3>Where do the life tables come from?</h3>
+      <p>
+        The app uses UK Office for National Statistics national life tables (2011–13), with projected improvements in
+        mortality over time. Calculations use the current year and are separate for men and women.
+      </p>
+
+      <h3>What are the limitations of the model?</h3>
+      <ul>
+        <li>The condition adds a constant excess mortality each year, so it cannot represent risks that are heavily front-loaded, such as an acute aortic dissection.</li>
+        <li>It considers mortality only, assumes the procedure is curative, and does not account for other illnesses.</li>
+        <li>Results are estimates that depend on the values you enter and on the assumptions above.</li>
+      </ul>
+
+      <h3>Does the app need an internet connection?</h3>
+      <p>
+        No. All calculations run on your device. The internet is used only if you tap the link to the published article.
+      </p>
+
+      <h3>Does the app store my entries?</h3>
+      <p>
+        No. Nothing you enter is saved or sent anywhere. See the privacy policy below.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Privacy</h2>
+      <p>
+        TUTE Calculator does not collect personally identifiable information or health information.
+        <a href="https://benderapps.dev/tute/privacy/">Read the full privacy policy</a>.
+      </p>
+    </section>
+
+    <p class="footer">
+      © 2026 Bender Apps
+    </p>
+  </main>
+</body>
+</html>
