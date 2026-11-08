@@ -24,9 +24,13 @@
     .about-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
     .about-card h3 { margin: 0 0 8px; font-size: 1.05rem; }
     .about-card p { margin: 0; color: var(--muted); line-height: 1.6; }
+    .bio { display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start; }
+    .bio-photo { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow); }
+    .bio-caption { margin: 10px 0 0; font-size: 0.9rem; color: var(--muted); text-align: center; }
+    @media (max-width: 700px) { .bio { grid-template-columns: 1fr; } .bio-photo { max-width: 240px; } .bio-caption { text-align: left; } }
     .about-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"AboutPage","name":"About Bender Apps","url":"https://benderapps.dev/about/","about":{"@id":"https://benderapps.dev/#organization"}},{"@type":"Organization","@id":"https://benderapps.dev/#organization","name":"Bender Apps","url":"https://benderapps.dev/","email":"support@benderapps.dev","logo":"https://benderapps.dev/assets/images/social/og-image.png","founder":{"@type":"Person","name":"Edward M. Bender","honorificSuffix":"MD, FACS","jobTitle":"Cardiothoracic Surgeon"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bender Apps","item":"https://benderapps.dev/"},{"@type":"ListItem","position":2,"name":"About","item":"https://benderapps.dev/about/"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"AboutPage","name":"About Bender Apps","url":"https://benderapps.dev/about/","about":{"@id":"https://benderapps.dev/#organization"}},{"@type":"Organization","@id":"https://benderapps.dev/#organization","name":"Bender Apps","url":"https://benderapps.dev/","email":"support@benderapps.dev","logo":"https://benderapps.dev/assets/images/social/og-image.png","founder":{"@type":"Person","name":"Edward M. Bender","honorificSuffix":"MD, FACS","jobTitle":"Cardiothoracic Surgeon","image":"https://benderapps.dev/images/about/edward-bender.jpg"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Bender Apps","item":"https://benderapps.dev/"},{"@type":"ListItem","position":2,"name":"About","item":"https://benderapps.dev/about/"}]}]}</script>
 </head>
 <body>
   <header class="site-header nav">
@@ -52,10 +56,18 @@
 
     <section class="app-section prose">
       <h2>Who's behind Bender Apps</h2>
+      <div class="bio">
+      <div>
+        <img class="bio-photo" src="/images/about/edward-bender.jpg" alt="Portrait of Edward M. Bender, MD, FACS" width="640" height="835" />
+        <p class="bio-caption">Edward M. Bender, MD, FACS</p>
+      </div>
+      <div>
       <p>Bender Apps was founded by <strong>Edward M. Bender, MD, FACS</strong>, a cardiothoracic surgeon who spent more than three decades in clinical practice and academic surgery. He is a graduate of the University of Michigan and Wayne State University School of Medicine (Alpha Omega Alpha), completed general surgery residency at the University of Colorado, and trained in thoracic surgery in Edinburgh and at the University of Chicago. He is certified by the American Board of Thoracic Surgery and the American Board of Surgery.</p>
       <p>His career included academic appointments at the University of Chicago and UT Southwestern, private practice in Dallas, Illinois, and Cape Girardeau, Missouri, and, most recently, Samaritan Health System in Corvallis, Oregon. From 2016 to 2025 he also served on the faculty of Stanford University's Department of Cardiothoracic Surgery, retiring as Clinical Professor.</p>
       <p>Alongside surgery, he has long built software for the specialty. He is an Associate Editor of <em>Innovations</em>, CTSNet, and the <em>Multimedia Manual of Cardiothoracic Surgery</em>, has lectured on apps for resident training at the STS and AATS meetings, and wrote about the subject in <em>Surgeon as Programmer</em> (<em>Annals of Thoracic Surgery</em>, 2019). His apps have supported published research, including the University of Minnesota Donor Lung Quality Index and the LIONS PREY nodule malignancy score.</p>
       <p>The idea behind Bender Apps is simple: the people who practice and teach surgery are well placed to build its tools, so these apps come from the clinical side of the table rather than from outside it.</p>
+      </div>
+      </div>
     </section>
 
     <section class="app-section prose">
